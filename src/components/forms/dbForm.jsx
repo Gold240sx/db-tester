@@ -10,7 +10,7 @@ export default function DbForm() {
   return (
     <div className="">
       <div className="flex flex-col align-middle text-center m-auto p-5 w-fit justify-between">
-        <h2 className="text-white font-bold text-4xl">Select database</h2>
+        <h2 className="text-gray-600 font-bold text-4xl">Select database</h2>
         <form className="m-auto flex flex-row gap-4 justify-around w-full mb-4 mt-10">
           <div
             onClick={() => setDatabase("Firebase")}
@@ -76,7 +76,6 @@ export default function DbForm() {
           </div>
         </form>
       </div>
-      {database && <div>{database}</div>}
     </div>
   );
 }

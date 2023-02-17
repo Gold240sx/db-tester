@@ -9,7 +9,7 @@ export default function formSelectForm() {
   return (
     <div className="">
       <div className="flex flex-col align-middle text-center m-auto p-5 w-fit justify-between">
-        <h3 className="text-white font-bold text-2xl">
+        <h3 className="text-gray-600 font-bold text-2xl">
           Select Form Entry Input Method
         </h3>
         <form className="m-auto flex flex-row gap-4 justify-around w-full mb-4 mt-10">
@@ -20,7 +20,7 @@ export default function formSelectForm() {
             }
             className={` ${
               formSelected === "vanilla" ? "border" : ""
-            } cursor-pointer px-4 py-2 text-orange-200 hover:text-orange-50 hover:bg-white/25 rounded-md bg-white/10 flex hover:shadow-lg`}
+            } cursor-pointer px-4 py-2 text-orange-200 hover:text-orange-50 hover:bg-white/25 rounded-full bg-white/10 flex hover:shadow-lg`}
           >
             <img className=" h-8 pr-2" src={vanillaCone} />
             <input
@@ -43,7 +43,7 @@ export default function formSelectForm() {
             }
             className={` ${
               formSelected === "reactHookForm" ? "border" : ""
-            } cursor-pointer px-4 py-2 text-pink-200 flex hover:text-pink-50 opacity-50 hover:bg-white/25 rounded-md bg-white/10 hover:shadow-lg`}
+            } cursor-pointer px-4 py-2 text-pink-200 flex hover:text-pink-50 opacity-50 hover:bg-white/25 rounded-full bg-white/10 hover:shadow-lg`}
           >
             <img className=" h-8 pr-2" src={reactHookFormLogo} />
             <input
@@ -58,7 +58,6 @@ export default function formSelectForm() {
           </div>
         </form>
       </div>
-      {formSelected && <div>{formSelected}</div>}
     </div>
   );
 }
