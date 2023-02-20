@@ -18,8 +18,7 @@ export function UserProvider({ children }) {
     username: "Willy",
     displayname: "WillyYeau",
     email: "willy@will3000.com",
-    avatar:
-      "https://upload.wikimedia.org/wikipedia/commons/9/9e/Male_Avatar.jpg",
+    avatar: "https://i.ibb.co/CH8rLhy/Avatar-prop.png",
     firstName: "Will",
     lastName: "Arnold",
     role: "Admin",

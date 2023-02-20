@@ -74,6 +74,30 @@ export default function InfoBar() {
         </div>
       )}
 
+      {/* minimized preview */}
+      {minimized && (
+        <div className="flex my-3 mt-60">
+          {form === "vanilla" ? (
+            <img className="h-10 mx-auto w-100" src={vanillaLogo} />
+          ) : form === "reactHookForm" ? (
+            <img className="h-10 mx-auto w-100" src={reactHookFormLogo} />
+          ) : null}
+        </div>
+      )}
+      {minimized && (
+        <div className="flex my-3">
+          {database === "Firebase" ? (
+            <img className="h-8 -mr-[4px]" src={firebaseLogo} />
+          ) : database === "Supabase" ? (
+            <img className="h-8 -mr-[4px]" src={supabaseLogo} />
+          ) : database === "ReactFire" ? (
+            <img className="h-8 -mr-[4px]" src={reactFireLogo} />
+          ) : null}
+        </div>
+      )}
+
+      {/* minimized preview end */}
+
       {!minimized && (
         // User  info
         <div id="info-bar-user-Info  mt-3">
