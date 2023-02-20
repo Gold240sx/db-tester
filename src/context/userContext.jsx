@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from "react";
+import Avatar from "../assets/images/Avatar-prop.png";
 
 export const UserContext = createContext();
 
@@ -17,7 +18,8 @@ export function UserProvider({ children }) {
     username: "Willy",
     displayname: "WillyYeau",
     email: "willy@will3000.com",
-    avatar: true,
+    avatar:
+      "https://upload.wikimedia.org/wikipedia/commons/9/9e/Male_Avatar.jpg",
     firstName: "Will",
     lastName: "Arnold",
     role: "Admin",

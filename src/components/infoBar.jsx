@@ -5,7 +5,6 @@ import reactFireLogo from "../assets/icons/react-fire.png";
 import vanillaLogo from "../assets/icons/vanilla.png";
 import reactHookFormLogo from "../assets/icons/react-hook-form.png";
 import AvatarDefault from "../assets/images/avatar-default.png";
-import Avatar from "../assets/images/avatar-prop.png";
 import { useDatabase } from "../hooks/useDatabase";
 import { useUser } from "../hooks/useUser";
 import { useForm } from "../hooks/useForm";
@@ -87,11 +86,13 @@ export default function InfoBar() {
             <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-auto">
               Avatar:
             </h2>
-            {avatar ? (
-              <img src={Avatar} className="h-10 rounded-full" />
-            ) : (
-              <img src={AvatarDefault} className="h-10 rounded-full" />
-            )}
+            <div style={{ maxWidth: "2.6rem" }} className="overflow-hidden">
+              {avatar ? (
+                <img src={avatar} className="rounded-full h-10 object-cover" />
+              ) : (
+                <img src={AvatarDefault} className="rounded-full w-14" />
+              )}
+            </div>
           </div>
 
           {/* Username */}
