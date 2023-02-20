@@ -21,6 +21,12 @@ export function UserProvider({ children }) {
     firstName: "Will",
     lastName: "Arnold",
     role: "Admin",
+    address: {
+      ln1: "2600 Anderson Rd",
+      city: "couple",
+      state: "WV",
+      zip: "51248",
+    },
   });
 
   const userAction = (database) => {

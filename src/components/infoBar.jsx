@@ -14,8 +14,16 @@ import { DbContext, DbProvider } from "../context/DbContext";
 export default function InfoBar() {
   const [minimized, setMinimized] = useState(false);
   const { database } = useDatabase();
-  const { username, displayname, email, avatar, firstName, lastName, role } =
-    useUser();
+  const {
+    username,
+    displayname,
+    email,
+    avatar,
+    firstName,
+    lastName,
+    role,
+    address,
+  } = useUser();
   const { form } = useForm();
   const formSelected = "vanilla";
 
@@ -116,12 +124,25 @@ export default function InfoBar() {
             </p>
           </div>
 
+          {/*Address */}
+          <div className="flex mt-2">
+            <h2 className="mr-2 text-white font-semibold text-right ml-auto">
+              Address:
+            </h2>
+            <p className="text-gray-400 mt-auto capitalize">
+              {address ? address.ln1 : "undefined"} <br />
+              {address ? `${address.city}, ` : null}
+              {address ? `${address.state} ` : null}
+              {address ? address.zip : null}
+            </p>
+          </div>
+
           {/* First Name */}
           <div className="flex">
             <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
               First Name:
             </h2>
-            <p className="text-gray-400 mt-auto lowercase">
+            <p className="text-gray-400 mt-auto capitalize">
               {firstName ? firstName : "undefined"}
             </p>
           </div>
@@ -131,7 +152,7 @@ export default function InfoBar() {
             <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
               Last Name:
             </h2>
-            <p className="text-gray-400 mt-auto lowercase">
+            <p className="text-gray-400 mt-auto capitalize">
               {lastName ? lastName : "undefined"}
             </p>
           </div>
@@ -141,7 +162,7 @@ export default function InfoBar() {
             <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
               Role:
             </h2>
-            <p className="text-gray-400 mt-auto lowercase">
+            <p className="text-gray-400 mt-auto capitalize">
               {role ? role : "undefined"}
             </p>
           </div>
