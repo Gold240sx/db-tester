@@ -95,6 +95,15 @@ export default function InfoBar() {
           ) : null}
         </div>
       )}
+      {minimized && (
+        <div style={{ maxWidth: "2.6rem" }} className="overflow-hidden">
+          {avatar ? (
+            <img src={avatar} className="rounded-full h-10 object-cover" />
+          ) : (
+            <img src={AvatarDefault} className="rounded-full w-14" />
+          )}
+        </div>
+      )}
 
       {/* minimized preview end */}
 
