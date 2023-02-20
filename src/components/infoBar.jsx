@@ -3,12 +3,21 @@ import firebaseLogo from "../assets/icons/firebase.png";
 import supabaseLogo from "../assets/icons/supabase.png";
 import reactFireLogo from "../assets/icons/react-fire.png";
 import vanillaLogo from "../assets/icons/vanilla.png";
-// import reactHookFormLogo from "../../assets/icons/react-hook-form.png";
+import reactHookFormLogo from "../assets/icons/react-hook-form.png";
+import AvatarDefault from "../assets/images/avatar-default.png";
+import Avatar from "../assets/images/avatar-prop.png";
+import { useDatabase } from "../hooks/useDatabase";
+import { useUser } from "../hooks/useUser";
+import { useForm } from "../hooks/useForm";
+import { DbContext, DbProvider } from "../context/DbContext";
 
 export default function InfoBar() {
   const [minimized, setMinimized] = useState(false);
+  const { database } = useDatabase();
+  const { username, displayname, email, avatar, firstName, lastName, role } =
+    useUser();
+  const { form } = useForm();
   const formSelected = "vanilla";
-  const database = "Firebase";
 
   return (
     <div className=" absolute top-4 right-2 min-w-fit w-30 p-5 flex-col bg-black rounded-2xl h-[90%] min-h-[448px]">
@@ -32,9 +41,9 @@ export default function InfoBar() {
           <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto">
             Form:
           </h2>
-          {formSelected === "vanilla" ? (
+          {form === "vanilla" ? (
             <img className="h-8" src={vanillaLogo} />
-          ) : formSelected === "reactHookForm" ? (
+          ) : form === "reactHookForm" ? (
             <img className="h-8" src={reactHookFormLogo} />
           ) : null}
         </div>
@@ -42,7 +51,7 @@ export default function InfoBar() {
       {!minimized && (
         <div className="flex my-3">
           {database && (
-            <div className="flex flex-row ">
+            <div className="flex flex-row ml-auto">
               <h2 className="my-auto mr-2 text-white font-semibold ml-auto">
                 Database:
               </h2>
@@ -55,6 +64,89 @@ export default function InfoBar() {
               ) : null}
             </div>
           )}
+        </div>
+      )}
+
+      {!minimized && (
+        // User  info
+        <div id="info-bar-user-Info  mt-3">
+          <h1 className="my-auto text-xl font-semibold text-right ml-auto underline text-gray-400">
+            User Info
+          </h1>
+
+          {/* Avatar*/}
+          <div className="flex mt-2">
+            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-auto">
+              Avatar:
+            </h2>
+            {avatar ? (
+              <img src={Avatar} className="h-10 rounded-full" />
+            ) : (
+              <img src={AvatarDefault} className="h-10 rounded-full" />
+            )}
+          </div>
+
+          {/* Username */}
+          <div className="flex">
+            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+              Username:
+            </h2>
+            <p className="text-gray-400 mt-auto capitalize">
+              {username ? username : "undefined"}
+            </p>
+          </div>
+
+          {/* Displayname */}
+          <div className="flex">
+            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+              Display Name:
+            </h2>
+            <p className="text-gray-400 mt-auto capitalize">
+              {displayname ? displayname : "undefined"}
+            </p>
+          </div>
+
+          {/* Email */}
+          <div className="flex">
+            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+              Email:
+            </h2>
+            <p className="text-gray-400 mt-auto lowercase">
+              {email ? email : "undefined"}
+            </p>
+          </div>
+
+          {/* First Name */}
+          <div className="flex">
+            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+              First Name:
+            </h2>
+            <p className="text-gray-400 mt-auto lowercase">
+              {firstName ? firstName : "undefined"}
+            </p>
+          </div>
+
+          {/* Last Name */}
+          <div className="flex">
+            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+              Last Name:
+            </h2>
+            <p className="text-gray-400 mt-auto lowercase">
+              {lastName ? lastName : "undefined"}
+            </p>
+          </div>
+
+          {/* Role */}
+          <div className="flex">
+            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+              Role:
+            </h2>
+            <p className="text-gray-400 mt-auto lowercase">
+              {role ? role : "undefined"}
+            </p>
+          </div>
+
+          {/* */}
         </div>
       )}
     </div>

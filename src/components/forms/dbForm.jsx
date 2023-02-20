@@ -1,11 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 import firebaseLogo from "../../assets/icons/firebase.png";
 import supabaseLogo from "../../assets/icons/supabase.png";
 import reactFireLogo from "../../assets/icons/react-fire.png";
+import { useDatabase } from "../../hooks/useDatabase";
 
 export default function DbForm() {
-  const [database, setDatabase] = useState("");
-  //   const database = useDatabase();
+  //   const { database, setDb } = useDatabase();
+  const { database, changeDb } = useDatabase();
+
+  //   useEffect(() => {
+  //     database = db;
+  //     return;
+  //   }, [database]);
 
   return (
     <div className="">
@@ -13,7 +19,7 @@ export default function DbForm() {
         <h2 className="text-gray-600 font-bold text-4xl">Select database</h2>
         <form className="m-auto flex flex-row gap-4 justify-around w-full mb-4 mt-10">
           <div
-            onClick={() => setDatabase("Firebase")}
+            onClick={() => changeDb("Firebase")}
             style={
               database === "Firebase" ? { opacity: "1" } : { opacity: "0.5" }
             }
@@ -34,7 +40,7 @@ export default function DbForm() {
           </div>
 
           <div
-            onClick={() => setDatabase("Supabase")}
+            onClick={() => changeDb("Supabase")}
             style={
               database === "Supabase" ? { opacity: "1" } : { opacity: "0.5" }
             }
@@ -55,7 +61,7 @@ export default function DbForm() {
           </div>
 
           <div
-            onClick={() => setDatabase("ReactFire")}
+            onClick={() => changeDb("ReactFire")}
             style={
               database === "ReactFire" ? { opacity: "1" } : { opacity: "0.5" }
             }

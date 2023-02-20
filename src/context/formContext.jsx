@@ -1,51 +1,29 @@
-// import React, { useState, useContext, createContext } from "react";
-// import { ReactHookForm } from "react-hook-form";
+import React, { createContext, useReducer } from "react";
 
-// // Define the form context
-// const FormContext = createContext();
+export const FormContext = createContext();
 
-// // Define the form provider component
-// function FormProviderComponent({ children }) {
-//   // Initialize the state for the selected form type
-//   const [formType, setFormType] = useState("customSignIn");
+export const FormReducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE_FORM":
+      return { ...state, form: action.payload };
+    default:
+      return state;
+  }
+  // return 'supabase' // this will work without the switch statement as a test.
+};
 
-//   // Define the function for toggling the form type
-//   function toggleFormType(formType) {
-//     setFormType(formType);
-//   }
+export function FormProvider({ children }) {
+  const [state, dispatch] = useReducer(FormReducer, {
+    form: "vanilla",
+  });
 
-//   // Define the function for rendering the selected form
-//   function renderForm() {
-//     switch (formType) {
-//       case "vanillaForm":
-//         return <CustomSignInForm />;
-//       case "reactForm":
-//         return (
-//           <FormProvider>
-//             <ReactHookForm />
-//           </FormProvider>
-//         );
-//       default:
-//         return null;
-//     }
-//   }
+  const changeForm = (database) => {
+    dispatch({ type: "CHANGE_FORM", payload: database });
+  };
 
-//   // Define the context value
-//   const contextValue = {
-//     formType,
-//     toggleFormType,
-//     renderForm,
-//   };
-
-//   // Render the context provider with the children and the context value
-//   return (
-//     <FormContext.Provider value={contextValue}>{children}</FormContext.Provider>
-//   );
-// }
-
-// // Define a custom hook for accessing the form context
-// function useFormContext() {
-//   return useContext(FormContext);
-// }
-
-// export { FormProviderComponent, useFormContext };
+  return (
+    <FormContext.Provider value={{ ...state, changeForm }}>
+      {children}
+    </FormContext.Provider>
+  );
+}

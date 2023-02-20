@@ -4,7 +4,6 @@ import DbForm from "./components/forms/dbForm";
 import FormSelectForm from "./components/forms/formSelectForm";
 import { ToastContainer } from "react-toastify";
 import InfoBar from "./components/infoBar";
-// import { DatabaseContext, useDatabase } from "./context/dbContext";
 
 export function App() {
   return (

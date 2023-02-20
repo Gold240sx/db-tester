@@ -1,4 +1,33 @@
-// import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useReducer } from "react";
+
+export const DbContext = createContext();
+
+export const DbReducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE_DB":
+      return { ...state, database: action.payload };
+    default:
+      return state;
+  }
+  // return 'supabase' // this will work without the switch statement as a test.
+};
+
+export function DbProvider({ children }) {
+  const [state, dispatch] = useReducer(DbReducer, {
+    database: "Supabase",
+  });
+
+  const changeDb = (database) => {
+    dispatch({ type: "CHANGE_DB", payload: database });
+  };
+
+  return (
+    <DbContext.Provider value={{ ...state, changeDb }}>
+      {children}
+    </DbContext.Provider>
+  );
+}
+
 // // import firebase from "firebase/app";
 // // import { auth } from "../Databases/firebase/firebase";
 // // import { createClient } from "@supabase/supabase-js";
