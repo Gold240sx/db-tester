@@ -8,6 +8,8 @@ For the purpose of testing functions of various databases, and forms. This proje
 
 <img src="https://i.ibb.co/7j3DYVw/preview.png" alt="preview" border="0">
 
+Live Demo: (This project is currently being built and has not been hosted yet. When a working prototype has been completed, the text you are reading now will be replaced with the live link.
+
 
 ## Setup
 
@@ -58,7 +60,7 @@ To ensure tailwind is modifying the css on save, run
   <!-- - neo4j (not included yet but considered in the future)  -->
   <!-- - redis (not included yet but considered in the future)  -->
   
-  Surreal, Mongodb, Postgres, mySql, SqLite, Neo4J, redis coming eventually.
+  ...Surreal, Mongodb, Postgres, mySql, SqLite, Neo4J, redis coming eventually.
 
 ## Forms
 
