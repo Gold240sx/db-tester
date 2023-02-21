@@ -50,13 +50,13 @@ To ensure tailwind is modifying the css on save, run
 - firebase
 - supabase
 - react-fire (NPM package)
-  <!-- surreal -->  (not included yet but considered in the future)
-  <!-- - mongodb --> (not included yet but considered in the future)
-  <!-- - postgres --> (not included yet but considered in the future)
-  <!-- - mysql --> (not included yet but considered in the future)
-  <!-- - sqlite --> (not included yet but considered in the future)
-  <!-- - neo4j --> (not included yet but considered in the future)
-  <!-- - redis --> (not included yet but considered in the future)
+  <!-- surreal  (not included yet but considered in the future)  -->
+  <!-- - mongodb (not included yet but considered in the future)  -->
+  <!-- - postgres (not included yet but considered in the future)  -->
+  <!-- - mysql (not included yet but considered in the future)  -->
+  <!-- - sqlite (not included yet but considered in the future)  -->
+  <!-- - neo4j (not included yet but considered in the future)  -->
+  <!-- - redis (not included yet but considered in the future)  -->
 
 ## Forms
 
