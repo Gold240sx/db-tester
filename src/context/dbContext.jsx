@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import React, { createContext, useReducer } from "react";
 
 export const DbContext = createContext();
@@ -6,6 +7,8 @@ export const DbReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE_DB":
       return { ...state, database: action.payload };
+    case "CHANGE_VAL":
+      return { ...state, validation: action.payload };
     default:
       return state;
   }
@@ -15,14 +18,19 @@ export const DbReducer = (state, action) => {
 export function DbProvider({ children }) {
   const [state, dispatch] = useReducer(DbReducer, {
     database: "Supabase",
+    validation: false,
   });
 
   const changeDb = (database) => {
     dispatch({ type: "CHANGE_DB", payload: database });
   };
 
+  const changeVal = (validation) => {
+    dispatch({ type: "CHANGE_VAL", payload: validation });
+  };
+
   return (
-    <DbContext.Provider value={{ ...state, changeDb }}>
+    <DbContext.Provider value={{ ...state, changeDb, changeVal }}>
       {children}
     </DbContext.Provider>
   );

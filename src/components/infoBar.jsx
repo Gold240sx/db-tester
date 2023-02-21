@@ -213,6 +213,24 @@ export default function InfoBar() {
           </div>
 
           {/* */}
+          {/* USERS SECTION */}
+          {!minimized && (
+            <div id="info-bar-users-Info" className="  mt-5">
+              <h1 className="my-auto text-xl font-semibold text-right ml-auto underline text-gray-400">
+                Users
+              </h1>
+              {/*  */}
+              <div className="flex">
+                <h1 className="my-auto text-lg font-semibold text-left mr-auto text-gray-600">
+                  All Users
+                </h1>
+                <h1 className="my-auto text-lg font-semibold text-right ml-auto text-gray-600">
+                  Active
+                </h1>
+                {/* Users Avatars Section - Avatar: tooltip to the username, link to the dynamic user page*/}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
