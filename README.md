@@ -60,7 +60,7 @@ To ensure tailwind is modifying the css on save, run
   <!-- - neo4j (not included yet but considered in the future)  -->
   <!-- - redis (not included yet but considered in the future)  -->
   
-  ...Surreal, Mongodb, Postgres, mySql, SqLite, Neo4J, redis coming eventually.
+  ...Surreal, Mongodb, Postgres, mySql, SqLite, Neo4J, redis, and PlanetScale (hopefully) coming eventually.
 
 ## Forms
 
