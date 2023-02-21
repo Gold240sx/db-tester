@@ -60,10 +60,9 @@ To ensure tailwind is modifying the css on save, run
 
 ## Forms
 
-<!-- - vanilla (simple) -->  (not included yet but considered in the future)
+<!-- - vanilla (simple) (not included yet but considered in the future)  -->  
 
--vanilla (complex)
-
+- vanilla (complex)
 - react-hook-forms
   <!-- ... expandable in the future -->
 
