@@ -4,6 +4,11 @@
 
 For the purpose of testing functions of various databases, and forms. This project is for the use of learning, testing both vanilla and npm forms (react-hook-forms) amoungst many different types of databases. The Context for form, database and user is all defined in the diffeent context stores.
 
+## Preview:
+
+<img src="https://i.ibb.co/7j3DYVw/preview.png" alt="preview" border="0">
+
+
 ## Setup
 
 create a new .env{database name} file in the project folder for your private db vaiables. Include your variables for that installation. For instance env.firebase Within the file,include:
