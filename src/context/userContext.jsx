@@ -19,6 +19,7 @@ export function UserProvider({ children }) {
     displayname: "WillyYeau",
     email: "willy@will3000.com",
     avatar: "https://i.ibb.co/CH8rLhy/Avatar-prop.png",
+    avatarDefault: "https://i.ibb.co/c6c8Kb4/avatar-default.png",
     firstName: "Will",
     lastName: "Arnold",
     role: "Admin",
