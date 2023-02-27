@@ -1,7 +1,7 @@
 import React from "react";
-import { useDatabase } from "../../hooks/useDatabase";
+import { useDatabase } from "../../../hooks/useDatabase";
 
-const signOut = () => {
+const SignOutVanilla = () => {
   const { database } = useDatabase();
   const handleSignOut = () => {
     console.log(`signOut of ${database}`);
@@ -20,4 +20,4 @@ const signOut = () => {
   );
 };
 
-export default signOut;
+export default SignOutVanilla;

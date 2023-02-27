@@ -1,9 +1,9 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
-import firebaseLogo from "../../assets/icons/firebase.png";
-import supabaseLogo from "../../assets/icons/supabase.png";
-import reactFireLogo from "../../assets/icons/react-fire.png";
-import pocketbaseLogo from "../../assets/icons/pocketbase.png";
-import { useDatabase } from "../../hooks/useDatabase";
+import firebaseLogo from "../assets/icons/firebase.png";
+import supabaseLogo from "../assets/icons/supabase.png";
+import reactFireLogo from "../assets/icons/react-fire.png";
+import pocketbaseLogo from "../assets/icons/pocketbase.png";
+import { useDatabase } from "../hooks/useDatabase";
 
 export default function DbForm() {
   //   const { database, setDb } = useDatabase();

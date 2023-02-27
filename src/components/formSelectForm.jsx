@@ -1,13 +1,19 @@
 import React, { useState, useContext } from "react";
-import vanillaCone from "../../assets/icons/vanilla.png";
-import reactHookFormLogo from "../../assets/icons/react-hook-form.png";
-import { useForm } from "../../hooks/useForm";
-import { useDatabase } from "../../hooks/useDatabase";
+import vanillaCone from "../assets/icons/vanilla.png";
+import reactHookFormLogo from "../assets/icons/react-hook-form.png";
+import { useForm } from "../hooks/useForm";
+import { useDatabase } from "../hooks/useDatabase";
 
 export default function formSelectForm() {
   const [formSelected, setFormSelected] = useState("");
-  const { form, changeForm } = useForm(); //validation
-  const { changeVal } = useDatabase();
+  const { form, changeForm, validation, changeValidation } = useForm(); //validation
+
+  //   console.log("form.validation", form.validation);
+  console.log("validation", validation);
+
+  const toggleValidation = (value) => {
+    changeValidation(value ? false : true);
+  };
 
   return (
     <div className="">
@@ -63,7 +69,8 @@ export default function formSelectForm() {
             <input
               type="checkbox"
               className="mx-auto bg-[#373736] border-transparent rounded-sm ml-2 my-auto cursor-pointer"
-              onClick={() => changeVal(true)}
+              checked={validation ? true : false}
+              onChange={() => toggleValidation(validation)}
             />
           </div>
         </form>

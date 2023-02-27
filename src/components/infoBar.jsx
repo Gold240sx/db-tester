@@ -11,9 +11,9 @@ import { useForm } from "../hooks/useForm";
 import { DbContext, DbProvider } from "../context/DbContext";
 
 export default function InfoBar() {
-  const [minimized, setMinimized] = useState();
+  const [minimized, setMinimized] = useState(false);
   const { database } = useDatabase();
-  const { form } = useForm(); // validation
+  const { form, authFunction, mode, validation } = useForm(); // validation
   const {
     username,
     displayname,
@@ -26,6 +26,7 @@ export default function InfoBar() {
     address,
   } = useUser();
 
+  console.log({ authFunction });
   return (
     <div className="min-w-fit w-30 p-5 flex-col bg-black rounded-2xl h-fit min-h-[448px]">
       {/* fixed ^^ later */}
@@ -212,13 +213,13 @@ export default function InfoBar() {
             </p>
           </div>
 
-          {/* Validation */}
+          {/* authFunction */}
           <div className="flex">
             <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
-              Validation:
+              Auth Function:
             </h2>
             <p className="text-gray-400 mt-auto capitalize">
-              {/* {validation ? validation : "undefined"} */}
+              {authFunction ? authFunction : "undefined"}
             </p>
           </div>
 

@@ -4,8 +4,14 @@ export const FormContext = createContext();
 
 export const FormReducer = (state, action) => {
   switch (action.type) {
-    case "CHANGE_FORM":
+    case "CHANGE_FORM": // select between "vanilla" and "react-hook-form"
       return { ...state, form: action.payload };
+    case "CHANGE_AUTH_FUNCTION": // select between various auth functions (SignIn, SignUp, UpdateEmail, UpdatePassword, DeleteAccount)
+      return { ...state, authFunction: action.payload };
+    case "CHANGE_VALIDATION": // select between validation "yes" and "no" (checkbox)
+      return { ...state, validation: action.payload };
+    case "CHANGE_MODE": // select between validation "yes" and "no" (checkbox)
+      return { ...state, mode: action.payload };
     default:
       return state;
   }
@@ -15,14 +21,37 @@ export const FormReducer = (state, action) => {
 export function FormProvider({ children }) {
   const [state, dispatch] = useReducer(FormReducer, {
     form: "vanilla",
+    authFunction: "SignIn",
+    validation: false, // validation will ALWAYS be "yes" for "react-hook-form" and optional for "vanilla".
+    mode: "light",
   });
 
   const changeForm = (database) => {
     dispatch({ type: "CHANGE_FORM", payload: database });
   };
 
+  const changeAuthFunction = (authFunction) => {
+    dispatch({ type: "CHANGE_AUTH_FUNCTION", payload: authFunction });
+  };
+
+  const changeMode = (mode) => {
+    dispatch({ type: "CHANGE_MODE", payload: mode });
+  };
+
+  const changeValidation = (validation) => {
+    dispatch({ type: "CHANGE_VALIDATION", payload: validation });
+  };
+
   return (
-    <FormContext.Provider value={{ ...state, changeForm }}>
+    <FormContext.Provider
+      value={{
+        ...state,
+        changeForm,
+        changeAuthFunction,
+        changeValidation,
+        changeMode,
+      }}
+    >
       {children}
     </FormContext.Provider>
   );
