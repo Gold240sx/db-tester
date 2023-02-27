@@ -114,7 +114,7 @@ export default function DbForm() {
                   database === "Pocketbase"
                     ? " border-zinc-300 border-2 dark:border-transparent"
                     : ""
-                } cursor-pointer px-4 py-2 dark:text-white dark:opacity-50 rounded-md flex hover:shadow-lg dark:bg-white/10  hover:bg-white text-zinc-500 bg-white border-2 border-transparent hover:text-zinc-700`}
+                } cursor-pointer px-4 py-2 dark:text-white dark:opacity-50 rounded-md dark:hover:bg-white/25 flex hover:shadow-lg dark:bg-white/10  hover:bg-white text-zinc-500 bg-white border-2 border-transparent hover:text-zinc-700`}
               >
                 <img className=" h-8 pr-2" src={pocketbaseLogo} />
                 <input

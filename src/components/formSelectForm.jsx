@@ -30,7 +30,7 @@ export default function formSelectForm() {
                 form === "vanilla"
                   ? "border-zinc-300 dark:border-transparent"
                   : ""
-              } cursor-pointer px-4 py-2 dark:text-orange-200 dark:hover:text-orange-50 text-[#e8c298] hover:text-[#cea373] hover:bg-white rounded-full dark:bg-white/10 flex hover:shadow-lg dark:opacity-50 bg-white border-2 border-transparent`}
+              } cursor-pointer px-4 py-2 dark:text-orange-200 dark:hover:text-orange-50 text-[#e8c298] dark:hover:bg-white/25 hover:text-[#cea373] hover:bg-white rounded-full dark:bg-white/10 flex hover:shadow-lg dark:opacity-50 bg-white border-2 border-transparent`}
             >
               <img className=" h-8 pr-2" src={vanillaCone} />
               <input
@@ -51,7 +51,7 @@ export default function formSelectForm() {
                 form === "reactHookForm"
                   ? "border-zinc-300 dark:border-transparent"
                   : ""
-              } cursor-pointer px-4 py-2 dark:text-pink-200 flex dark:hover:text-pink-50 dark:opacity-50 hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg text-pink-400 hover:text-pink-500  border-2 border-transparent`}
+              } cursor-pointer px-4 py-2 dark:text-pink-200 flex dark:hover:text-pink-50 dark:opacity-50 dark:hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg hover:bg-white text-pink-400 hover:text-pink-500  border-2 border-transparent`}
             >
               <img className=" h-8 pr-2" src={reactHookFormLogo} />
               <input
@@ -67,7 +67,7 @@ export default function formSelectForm() {
           </div>
           {/* validation Select */}
           <div className="flex mx-auto">
-            <h3 className="my-auto">Validation?</h3>
+            <h3 className="my-auto text-zinc-400">Validation?</h3>
             <input
               type="checkbox"
               className="mx-auto dark:bg-[#373736] border-transparent rounded-sm ml-2 my-auto cursor-pointer"

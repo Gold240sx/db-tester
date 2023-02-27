@@ -77,7 +77,7 @@ export default function InfoBar() {
       {/* minimized preview */}
       {minimized && (
         <div className="flex my-3 flex-col w-10">
-          <p className="dark:text-white/40 text-3xl -rotate-90 whitespace-nowrap  mt-36">
+          <p className="dark:text-white/40 text-3xl -rotate-90 whitespace-nowrap  mt-36 text-zinc-400">
             Project Info
           </p>
           {form === "vanilla" ? (
