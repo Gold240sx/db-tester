@@ -9,11 +9,6 @@ import SignUpFormRHF from "./signInFormRHF.tsx";
 export default function SignIn(AuthFunct) {
   const { form, authFunction } = useForm();
   const { database } = useDatabase();
-  const formVal = form;
-
-  const db = false;
-
-  console.log(form);
 
   return (
     <div className="text-white">

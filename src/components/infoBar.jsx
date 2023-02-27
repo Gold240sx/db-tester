@@ -9,11 +9,13 @@ import { useDatabase } from "../hooks/useDatabase";
 import { useUser } from "../hooks/useUser";
 import { useForm } from "../hooks/useForm";
 import { DbContext, DbProvider } from "../context/DbContext";
+import { useTheme } from "../hooks/useTheme";
 
 export default function InfoBar() {
   const [minimized, setMinimized] = useState(false);
   const { database } = useDatabase();
-  const { form, authFunction, mode, validation } = useForm(); // validation
+  const { form, authFunction, validation } = useForm(); // validation
+  const { mode } = useTheme();
   const {
     username,
     displayname,
@@ -26,14 +28,13 @@ export default function InfoBar() {
     address,
   } = useUser();
 
-  console.log({ authFunction });
   return (
-    <div className="min-w-fit w-30 p-5 flex-col bg-black rounded-2xl h-fit min-h-[448px]">
+    <div className="min-w-fit w-30 p-5 flex-col dark:bg-black bg-white rounded-2xl h-fit min-h-[448px] overflow-y-auto overflow-x-hidden w-full">
       {/* fixed ^^ later */}
       <div
         className={` ${
           minimized ? "mx-auto" : "ml-auto"
-        } rounded-full border text-white h-6 w-6 mb-8 cursor-pointer hover:bg-white/25`}
+        } rounded-full border h-6 w-6 mb-8 cursor-pointer hover:bg-white/25`}
         onClick={() => {
           setMinimized(!minimized);
         }}
@@ -44,7 +45,7 @@ export default function InfoBar() {
 
       {!minimized && (
         <div className="flex my-3">
-          <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto">
+          <h2 className="my-auto mr-2  font-semibold text-right ml-auto">
             Form:
           </h2>
           {form === "vanilla" ? (
@@ -58,9 +59,7 @@ export default function InfoBar() {
         <div className="flex my-3">
           {database && (
             <div className="flex flex-row ml-auto">
-              <h2 className="my-auto mr-2 text-white font-semibold ml-auto">
-                Database:
-              </h2>
+              <h2 className="my-auto mr-2 font-semibold ml-auto">Database:</h2>
               {database === "Firebase" ? (
                 <img className="h-8" src={firebaseLogo} />
               ) : database === "Supabase" ? (
@@ -78,7 +77,7 @@ export default function InfoBar() {
       {/* minimized preview */}
       {minimized && (
         <div className="flex my-3 flex-col w-10">
-          <p className="text-white/40 text-3xl -rotate-90 whitespace-nowrap  mt-36">
+          <p className="dark:text-white/40 text-3xl -rotate-90 whitespace-nowrap  mt-36">
             Project Info
           </p>
           {form === "vanilla" ? (
@@ -128,7 +127,7 @@ export default function InfoBar() {
 
           {/* Avatar*/}
           <div className="flex mt-2">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-auto">
+            <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-auto">
               Avatar:
             </h2>
             <div style={{ maxWidth: "2.6rem" }} className="overflow-hidden">
@@ -142,7 +141,7 @@ export default function InfoBar() {
 
           {/* Username */}
           <div className="flex">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+            <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
               Username:
             </h2>
             <p className="text-gray-400 mt-auto capitalize">
@@ -152,7 +151,7 @@ export default function InfoBar() {
 
           {/* Displayname */}
           <div className="flex">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+            <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
               Display Name:
             </h2>
             <p className="text-gray-400 mt-auto capitalize">
@@ -162,7 +161,7 @@ export default function InfoBar() {
 
           {/* Email */}
           <div className="flex">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+            <h2 className="my-auto mr-2  font-semibold text-right ml-auto mt-2">
               Email:
             </h2>
             <p className="text-gray-400 mt-auto lowercase">
@@ -172,9 +171,7 @@ export default function InfoBar() {
 
           {/*Address */}
           <div className="flex mt-2">
-            <h2 className="mr-2 text-white font-semibold text-right ml-auto">
-              Address:
-            </h2>
+            <h2 className="mr-2 font-semibold text-right ml-auto">Address:</h2>
             <p className="text-gray-400 mt-auto capitalize">
               {address ? address.ln1 : "undefined"} <br />
               {address ? `${address.city}, ` : null}
@@ -185,7 +182,7 @@ export default function InfoBar() {
 
           {/* First Name */}
           <div className="flex">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+            <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
               First Name:
             </h2>
             <p className="text-gray-400 mt-auto capitalize">
@@ -195,7 +192,7 @@ export default function InfoBar() {
 
           {/* Last Name */}
           <div className="flex">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+            <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
               Last Name:
             </h2>
             <p className="text-gray-400 mt-auto capitalize">
@@ -205,7 +202,7 @@ export default function InfoBar() {
 
           {/* Role */}
           <div className="flex">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+            <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
               Role:
             </h2>
             <p className="text-gray-400 mt-auto capitalize">
@@ -215,7 +212,7 @@ export default function InfoBar() {
 
           {/* authFunction */}
           <div className="flex">
-            <h2 className="my-auto mr-2 text-white font-semibold text-right ml-auto mt-2">
+            <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
               Auth Function:
             </h2>
             <p className="text-gray-400 mt-auto capitalize">

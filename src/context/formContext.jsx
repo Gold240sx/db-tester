@@ -10,8 +10,6 @@ export const FormReducer = (state, action) => {
       return { ...state, authFunction: action.payload };
     case "CHANGE_VALIDATION": // select between validation "yes" and "no" (checkbox)
       return { ...state, validation: action.payload };
-    case "CHANGE_MODE": // select between validation "yes" and "no" (checkbox)
-      return { ...state, mode: action.payload };
     default:
       return state;
   }
@@ -23,7 +21,6 @@ export function FormProvider({ children }) {
     form: "vanilla",
     authFunction: "SignIn",
     validation: false, // validation will ALWAYS be "yes" for "react-hook-form" and optional for "vanilla".
-    mode: "light",
   });
 
   const changeForm = (database) => {
@@ -32,10 +29,6 @@ export function FormProvider({ children }) {
 
   const changeAuthFunction = (authFunction) => {
     dispatch({ type: "CHANGE_AUTH_FUNCTION", payload: authFunction });
-  };
-
-  const changeMode = (mode) => {
-    dispatch({ type: "CHANGE_MODE", payload: mode });
   };
 
   const changeValidation = (validation) => {
@@ -49,7 +42,6 @@ export function FormProvider({ children }) {
         changeForm,
         changeAuthFunction,
         changeValidation,
-        changeMode,
       }}
     >
       {children}

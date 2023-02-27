@@ -18,18 +18,20 @@ import BanUser from "./authForms/banUser/banUser";
 import SignOut from "./authForms/signOut/signOut";
 
 export default function FunctSelectForm() {
-  const [formSelected, setFormSelected] = useState("");
-  const { form, changeForm, validation, changeValidation } = useForm();
-  const [selected, setSelected] = useState(null);
-  const { changeAuthFunction, authFunction } = useForm();
+  const [selected, setSelected] = useState();
+  const { changeAuthFunction } = useForm();
   const { database } = useDatabase();
   const user = true;
 
   const tailRadioButtonStyles = (
     value
-  ) => `cursor-pointer border-white border-2 px-2 rounded-md active:border-white/50
-  ${selected === value ? "border-lime-400 text-lime-600 bg-lime-800/30" : ""}
-  ${!selected ? "hover:bg-lime-800/50 hover:text-white/90" : ""}
+  ) => `cursor-pointer border-white border-2 px-2 rounded-md active:border-white/50 hover:box-shadow-lg
+  ${
+    selected === value
+      ? "border-lime-400 dark:text-lime-600 dark:bg-lime-800/30 bg-zinc-300 text-white"
+      : ""
+  }
+  ${!selected ? "dark:hover:bg-lime-800/50 dark:hover:text-white/90" : ""}
 `;
 
   const handleAuthFunction = (value) => {
@@ -38,8 +40,8 @@ export default function FunctSelectForm() {
   };
 
   return (
-    <div className="rounded-2xl bg-black/25 mx-auto h-fit px-8 py-4 mt-10 w-[520px]">
-      <h1 className="text-gray-600 font-bold text-4xl text-center">
+    <div className="rounded-2xl dark:bg-black/25  bg-white/25 mx-auto h-fit px-8 py-4 mt-10 w-[520px]">
+      <h1 className="dark:text-gray-600 font-bold text-4xl text-center text-slate-300 m-4">
         Auth Functions...
       </h1>
       {/* Auth Functions Radio Button Select */}
@@ -50,7 +52,7 @@ export default function FunctSelectForm() {
           <div className="flex gap-2">
             {/*  Sign In */}
             <label
-              for="SIGN_IN-Radio"
+              htmlFor="SIGN_IN-Radio"
               className={tailRadioButtonStyles("SignIn")}
               onClick={() => handleAuthFunction("SignIn")}
             >
@@ -69,7 +71,7 @@ export default function FunctSelectForm() {
           {/* Sign out */}
           <div className="flex gap-2">
             <label
-              for="SIGN_OUT-Radio"
+              htmlFor="SIGN_OUT-Radio"
               className={tailRadioButtonStyles("SignOut")}
             >
               SignOut
@@ -87,7 +89,7 @@ export default function FunctSelectForm() {
           {/* Sign up */}
           <div className="flex gap-2">
             <label
-              for="SIGN_UP-Radio"
+              htmlFor="SIGN_UP-Radio"
               className={tailRadioButtonStyles("SignUp")}
             >
               SignUp
@@ -105,7 +107,7 @@ export default function FunctSelectForm() {
           {/* Update DisplayName */}
           <div className="flex gap-2">
             <label
-              for="UPDATE_DISPLAYNAME-Radio"
+              htmlFor="UPDATE_DISPLAYNAME-Radio"
               className={tailRadioButtonStyles("UpdateDisplayName")}
             >
               Update DisplayName
@@ -126,7 +128,7 @@ export default function FunctSelectForm() {
           {/* Update Email */}
           <div className="flex gap-2">
             <label
-              for="UPDATE_EMAIL-Radio"
+              htmlFor="UPDATE_EMAIL-Radio"
               className={tailRadioButtonStyles("UpdateEmail")}
             >
               Update Email
@@ -145,7 +147,7 @@ export default function FunctSelectForm() {
           {/* Update Password */}
           <div className="flex gap-2">
             <label
-              for="UPDATE_PSSWD-Radio"
+              htmlFor="UPDATE_PSSWD-Radio"
               className={tailRadioButtonStyles("UpdatePassword")}
             >
               Update Password
@@ -184,7 +186,7 @@ export default function FunctSelectForm() {
           {/* Create User */}
           <div className="flex gap-2">
             <label
-              for="Create_User-Radio"
+              htmlFor="Create_User-Radio"
               className={tailRadioButtonStyles("CreateUser")}
             >
               CreateUser
@@ -202,7 +204,7 @@ export default function FunctSelectForm() {
           {/* Invite User*/}
           <div className="flex gap-2">
             <label
-              for="INVITE_USER-Radio"
+              htmlFor="INVITE_USER-Radio"
               className={tailRadioButtonStyles("InviteUser")}
             >
               Invite User

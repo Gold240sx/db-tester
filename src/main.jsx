@@ -5,19 +5,24 @@ import "./styles/index.css";
 
 //Contexts
 import { DbProvider } from "./context/DbContext";
+import { FirebaseAppProvider } from "reactfire";
 import { UserProvider } from "./context/userContext";
 import { FormProvider } from "./context/formContext";
-// import { FormContext } from "./context/FormContext";
-// import { ThemeContext } from "./context/ThemeContext";
+import { ThemeProvider } from "./context/themeContext";
+import { reactFireConfig } from "./Databases/ReactFire/reactFireConfig";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <DbProvider>
-      <UserProvider>
-        <FormProvider>
-          <App />
-        </FormProvider>
-      </UserProvider>
+      <FirebaseAppProvider firebaseConfig={reactFireConfig}>
+        <ThemeProvider>
+          <UserProvider>
+            <FormProvider>
+              <App />
+            </FormProvider>
+          </UserProvider>
+        </ThemeProvider>
+      </FirebaseAppProvider>
     </DbProvider>
   </React.StrictMode>
 );

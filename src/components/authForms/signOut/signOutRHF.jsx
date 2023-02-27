@@ -13,7 +13,7 @@ const SignOutRHF = () => {
   return (
     <div className="w-100 mt-5">
       <button
-        className="bg-white/5 p-2 mx-auto rounded-md flex text-white hover:bg-white/50
+        className="dark:bg-white/5 p-2 mx-auto rounded-md flex dark:hover:bg-white/50 bg-white/70 text-zinc-500 hover:bg-white hover:shadow-md
         "
         onClick={handleSignOut}
       >

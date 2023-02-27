@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
-import SignOutRHF from "./signOutRHF";
-import SignOutVanilla from "./signOutVanilla";
+import SignOutRHF from "./signOutRHF.jsx";
+import SignOutVanilla from "./signOutVanilla.jsx";
 
 export default function SignOut() {
   const { form, authFunction } = useForm();
   const { database } = useDatabase();
-
-  const db = false;
-
-  console.log(form);
 
   return (
     <div className="text-white">
