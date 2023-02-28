@@ -3,6 +3,7 @@ import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import DeleteAccountFormVanilla from "./deleteAccountFormVanilla.jsx";
 import DeleteAccountFormRHF from "./deleteAccountFormRHF.jsx";
+import DeleteAccountFormDUI from "./deleteAccountFormDUI";
 
 export default function DeleteAccount() {
   const { form, authFunction } = useForm();
@@ -16,6 +17,9 @@ export default function DeleteAccount() {
       {database &&
         form === "reactHookForm" &&
         authFunction === "DeleteAccount" && <DeleteAccountFormRHF />}
+      {database && form === "daisyUI" && authFunction === "DeleteAccount" && (
+        <DeleteAccountFormDUI />
+      )}
     </div>
   );
 }

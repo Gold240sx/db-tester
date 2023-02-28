@@ -3,13 +3,11 @@ import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import BanUserFormVanilla from "./banUserFormVanilla.jsx";
 import BanUserFormRHF from "./banUserFormRHF.jsx";
+import BanUserFormDUI from "./banUserFormDUI";
 
 export default function BanUser() {
   const { form, authFunction } = useForm();
   const { database } = useDatabase();
-  const formVal = form;
-
-  const db = false;
 
   return (
     <div className="text-white">
@@ -18,6 +16,9 @@ export default function BanUser() {
       )}
       {database && form === "reactHookForm" && authFunction === "BanUser" && (
         <BanUserFormRHF />
+      )}
+      {database && form === "daisyUI" && authFunction === "BanUser" && (
+        <BanUserFormDUI />
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import UpdatePasswordFormVanilla from "./updatePasswordFormVanilla.jsx";
 import UpdatePasswordFormRHF from "./updatePasswordFormRHF.jsx";
+import UpdatePasswordFormDUI from "./updatePasswordFormDUI";
 
 export default function UpdatePassword() {
   const { form, authFunction } = useForm();
@@ -16,6 +17,9 @@ export default function UpdatePassword() {
       {database &&
         form === "reactHookForm" &&
         authFunction === "UpdatePassword" && <UpdatePasswordFormRHF />}
+      {database && form === "daisyUI" && authFunction === "UpdatePassword" && (
+        <UpdatePasswordFormDUI />
+      )}
     </div>
   );
 }

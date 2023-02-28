@@ -3,6 +3,7 @@ import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import CreateUserFormVanilla from "./createUserFormVanilla.jsx";
 import CreateUserFormRHF from "./createUserFormRHF.jsx";
+import CreateUserFormDUI from "./createUserFormDUI";
 
 export default function CreateUser() {
   const { form, authFunction } = useForm();
@@ -16,6 +17,9 @@ export default function CreateUser() {
       {database &&
         form === "reactHookForm" &&
         authFunction === "CreateUser" && <CreateUserFormRHF />}
+      {database && form === "daisyUI" && authFunction === "CreateUser" && (
+        <CreateUserFormDUI />
+      )}
     </div>
   );
 }

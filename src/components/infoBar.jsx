@@ -5,6 +5,7 @@ import reactFireLogo from "../assets/icons/react-fire.png";
 import pocketbaseLogo from "../assets/icons/pocketbase.png";
 import vanillaLogo from "../assets/icons/vanilla.png";
 import reactHookFormLogo from "../assets/icons/react-hook-form.png";
+import daisyUILogo from "../assets/icons/daisyui.png";
 import { useDatabase } from "../hooks/useDatabase";
 import { useUser } from "../hooks/useUser";
 import { useForm } from "../hooks/useForm";
@@ -12,9 +13,10 @@ import { DbContext, DbProvider } from "../context/DbContext";
 import { useTheme } from "../hooks/useTheme";
 
 export default function InfoBar() {
-  const [minimized, setMinimized] = useState(false);
+  const [minimized, setMinimized] = useState(true);
   const [showTopGradient, setShowTopGradient] = useState(false);
   const [showBottomGradient, setShowBottomGradient] = useState(false);
+  const [infobarHeight, setInfobarHeight] = useState(0);
   const [mode, setMode] = useState("light");
   const { database } = useDatabase();
   const { form } = useForm();
@@ -32,64 +34,68 @@ export default function InfoBar() {
   } = useUser();
   const { authFunction } = useForm();
 
-  useEffect(() => {
-    const infoBarElem = infoBarRef.current;
-    const scrollableElem = scrollableRef.current;
+  //   useEffect(() => {
+  //     const infoBarElem = infoBarRef.current;
+  //     const scrollableElem = scrollableRef.current;
 
-    if (infoBarElem && scrollableElem) {
-      const handleScroll = () => {
-        console.log(
-          infoBarRef.current.scrollTop,
-          infoBarRef.current.clientHeight,
-          infoBarRef.current.scrollHeight
-        );
-        if (scrollableElem.scrollTop === 0) {
-          setShowTopGradient(false);
-        } else {
-          setShowTopGradient(true);
-        }
+  //     if (infoBarElem) {
+  //       setInfobarHeight(infoBarElem.clientHeight);
+  //     }
 
-        if (
-          scrollableElem.scrollTop + scrollableElem.clientHeight ===
-          scrollableElem.scrollHeight
-        ) {
-          setShowBottomGradient(false);
-        } else {
-          setShowBottomGradient(true);
-        }
-      };
+  //     if (infoBarElem && scrollableElem) {
+  //       const handleScroll = () => {
+  //         console.log(
+  //           infoBarRef.current.scrollTop,
+  //           infoBarRef.current.clientHeight,
+  //           infoBarRef.current.scrollHeight
+  //         );
+  //         if (scrollableElem.scrollTop === 0) {
+  //           setShowTopGradient(false);
+  //         } else {
+  //           setShowTopGradient(true);
+  //         }
 
-      infoBarElem.addEventListener("scroll", handleScroll);
+  //         if (
+  //           scrollableElem.scrollTop + scrollableElem.clientHeight ===
+  //           scrollableElem.scrollHeight
+  //         ) {
+  //           setShowBottomGradient(false);
+  //         } else {
+  //           setShowBottomGradient(true);
+  //         }
+  //       };
 
-      return () => {
-        infoBarElem.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, []);
+  //       infoBarElem.addEventListener("scroll", handleScroll);
+
+  //       return () => {
+  //         infoBarElem.removeEventListener("scroll", handleScroll);
+  //       };
+  //     }
+  //   }, []);
 
   console.log("mode", mode);
-  console.log({ showTopGradient, showBottomGradient });
 
-  const gradientOverlay = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    maxHeight: "min(calc(100vh - 9.25rem - 10px))),  100%)",
-    backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, ${
-      showTopGradient ? (mode === "light" ? "0.9" : "0.6") : 0.01
-    }) 0%, rgba(0, 0, 0, 0) 15%), linear-gradient(to bottom, rgba(0, 0, 0, ${
-      showBottomGradient ? (mode === "light" ? "0.9" : "0.6") : 0.01
-    }) 0%, rgba(0, 0, 0, 0) 15%)`,
-    transition: "background-image 0.3s ease-in-out",
-    pointerEvents: "none",
-    zIndex: 60,
-  };
+  //   const gradientOverlay = {
+  //     // position: "absolute",
+  //     top: 0,
+  //     left: 0,
+  //     right: 0,
+  //     maxHeight: "100%",
+  //     backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, ${
+  //       showTopGradient ? (mode === "light" ? "0.9" : "0.6") : 0.3
+  //     }) 0%, rgba(0, 0, 0, 0) 15%), linear-gradient(to bottom, rgba(0, 0, 0, ${
+  //       showBottomGradient ? (mode === "light" ? "0.9" : "0.6") : 0.3
+  //     }) 0%, rgba(0, 0, 0, 0) 15%)`,
+  //     transition: "background-image 0.3s ease-in-out",
+  //     pointerEvents: "none",
+  //     borderRadius: "1rem",
+  //     zIndex: 60,
+  //   };
 
   return (
     <div
       ref={infoBarRef}
-      className="min-w-fit w-30 p-5 flex-col dark:bg-black bg-white rounded-2xl h-fit min-h-[448px] w-full overflow-hidden"
+      className="min-w-fit w-30 p-5 flex-col dark:bg-black bg-white rounded-2xl h-fit min-h-[448px] w-full overflow-hidden ease-in-out"
     >
       {/* fixed ^^ later */}
       <div
@@ -98,19 +104,16 @@ export default function InfoBar() {
       >
         <div
           className={`${
-            minimized ? "mx-auto" : "ml-auto"
-          } rounded-full border h-6 w-6 mb-8 cursor-pointer hover:bg-white/25`}
+            minimized ? "mx-auto" : "ml-auto  z-50"
+          } rounded-full border h-6 w-6 cursor-pointer hover:bg-white/25`}
           onClick={() => {
             setMinimized(!minimized);
           }}
         >
-          {!minimized ? <p className="w-6 text-center">-</p> : null}
+          {!minimized ? <p className="w-6 text-center bg-red">-</p> : null}
           {minimized ? <p className="w-6 text-center">+</p> : null}
         </div>
-        <div
-          style={{ maxHeight: "calc(min(532px, 60vh))" }}
-          className="overflow-y-auto"
-        >
+        <div style={{ maxHeight: "calc(min(532px, 60vh))" }} className="">
           {!minimized && (
             <div className="flex my-3">
               <h2 className="my-auto mr-2  font-semibold text-right ml-auto">
@@ -120,6 +123,8 @@ export default function InfoBar() {
                 <img className="h-8" src={vanillaLogo} />
               ) : form === "reactHookForm" ? (
                 <img className="h-8" src={reactHookFormLogo} />
+              ) : form === "daisyUI" ? (
+                <img className="h-8" src={daisyUILogo} />
               ) : null}
             </div>
           )}
@@ -157,6 +162,8 @@ export default function InfoBar() {
                   className="h-10 mx-auto w-100 mt-10"
                   src={reactHookFormLogo}
                 />
+              ) : form === "daisyUI" ? (
+                <img className="h-10 mx-auto w-100 mt-10" src={daisyUILogo} />
               ) : null}
             </div>
           )}
@@ -324,8 +331,8 @@ export default function InfoBar() {
           )}
         </div>
       </div>
-      {/* Add gradient overlay */}
-      <div
+      {/* /* Add gradient overlay */}
+      {/* <div
         style={{
           position: "absolute",
           top: 0,
@@ -333,9 +340,10 @@ export default function InfoBar() {
           left: 0,
           right: 0,
           zIndex: -1,
+          height: infobarHeight,
           ...gradientOverlay,
         }}
-      />
+      /> */}
     </div>
   );
 }

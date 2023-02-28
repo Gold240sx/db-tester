@@ -64,9 +64,9 @@ export function App() {
         <div
           className="fixed right-5 rounded-xl overflow-hidden"
           style={{
-            maxHeight: "calc(100vh - 9.25rem - 10px)",
-            minHeight: "calc(100vh - 9.25rem - 10px)",
-            bottom: "10px",
+            maxHeight: "calc(100vh - 10.25rem - 25px)",
+            minHeight: "calc(100vh - 10.25rem - 25px)",
+            bottom: "25px",
           }}
         >
           <InfoBar className="relative" style={{}} />

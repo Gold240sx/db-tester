@@ -3,6 +3,7 @@ import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import DowngradeUserFormVanilla from "./downgradeUserFormVanilla.jsx";
 import DowngradeUserFormRHF from "./downgradeUserFormRHF.jsx";
+import DowngradeUserFormDUI from "./downgradeUserFormDUI";
 
 export default function DowngradeUser() {
   const { form, authFunction } = useForm();
@@ -16,6 +17,9 @@ export default function DowngradeUser() {
       {database &&
         form === "reactHookForm" &&
         authFunction === "DowngradeUser" && <DowngradeUserFormRHF />}
+      {database && form === "daisyUI" && authFunction === "DowngradeUser" && (
+        <DowngradeUserFormDUI />
+      )}
     </div>
   );
 }

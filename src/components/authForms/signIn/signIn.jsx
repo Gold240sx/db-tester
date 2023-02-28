@@ -6,6 +6,7 @@ import SignInFormRHF from "./signInFormRHF.tsx";
 import SignUpFormVanilla from "./signInFormVanilla.jsx";
 import SignUpFormRHF from "./signInFormRHF.tsx";
 import BeachBG from "../../../assets/images/beach.jpeg";
+import SignInFormDUI from "./signInFormDUI";
 
 export default function SignIn(AuthFunct) {
   const { form, authFunction } = useForm();
@@ -23,6 +24,9 @@ export default function SignIn(AuthFunct) {
         )}
         {database && form === "reactHookForm" && authFunction === "SignIn" && (
           <SignInFormRHF />
+        )}
+        {database && form === "daisyUI" && authFunction === "SignIn" && (
+          <SignInFormDUI />
         )}
       </div>
     </div>

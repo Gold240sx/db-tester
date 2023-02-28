@@ -16,6 +16,7 @@
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.15",
     "@supabase/supabase-js": "^2.7.1",
+    "daisyui": "^2.51.2",
     "firebase": "^9.17.1",
     "framer-motion": "^9.0.2",
     "react": "^18.2.0",

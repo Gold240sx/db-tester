@@ -4,6 +4,7 @@ import { useForm } from "../../../hooks/useForm";
 import SignUpFormVanilla from "./signUpFormVanilla.jsx";
 import SignUpFormRHF from "./signUpFormRHF.jsx";
 import BeachBG from "../../../assets/images/beach.jpeg";
+import SignUpFormDUI from "./signUpFormDUI";
 
 export default function SignUp() {
   const { form, authFunction } = useForm();
@@ -21,6 +22,9 @@ export default function SignUp() {
         )}
         {database && form === "reactHookForm" && authFunction === "SignUp" && (
           <SignUpFormRHF />
+        )}
+        {database && form === "daisyUI" && authFunction === "SignUp" && (
+          <SignUpFormDUI />
         )}
       </div>
     </div>

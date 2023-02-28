@@ -3,6 +3,7 @@ import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import VerifyEmailFormVanilla from "./verifyEmailFormVanilla.jsx";
 import VerifyEmailFormRHF from "./verifyEmailFormRHF.jsx";
+import VerifyEmailFormDUI from "./verifyEmailFormDUI";
 
 export default function VerifyEmail() {
   const { form, authFunction } = useForm();
@@ -16,6 +17,9 @@ export default function VerifyEmail() {
       {database &&
         form === "reactHookForm" &&
         authFunction === "VerifyEmail" && <VerifyEmailFormRHF />}
+      {database && form === "daisyUI" && authFunction === "VerifyEmail" && (
+        <VerifyEmailFormDUI />
+      )}
     </div>
   );
 }

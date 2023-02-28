@@ -14,6 +14,7 @@ import EmailUser from "./authForms/emailUser/emailUser";
 import DowngradeUser from "./authForms/downgradeUser/downgradeUser";
 import VerifyEmail from "./authForms/verifyEmail/verifyEmail";
 import UpdateAvatar from "./authForms/updateAvatar/updateAvatar";
+import SignInWithEmailLink from "./authForms/signInWithEmailLink/signInWithEmailLink";
 import BanUser from "./authForms/banUser/banUser";
 import SignOut from "./authForms/signOut/signOut";
 
@@ -334,10 +335,32 @@ export default function FunctSelectForm() {
               className="my-auto hidden"
             />
           </div>
+          {/*  Sign In With Email Link*/}
+          <div className="flex gap-2">
+            <label
+              htmlFor="Signin_EmailLink-Radio"
+              className={tailRadioButtonStyles("SignInWithEmailLink")}
+            >
+              Sign In With Email Link
+            </label>
+            <input
+              id="Signin_EmailLink-Radio"
+              type="radio"
+              name="database"
+              value="SignInWithEmailLink"
+              onChange={(e) => handleAuthFunction(e.target.value)}
+              checked={selected === "SignInWithEmailLink"}
+              className="my-auto hidden"
+            />
+          </div>
         </div>
       </form>
       {database && selected === "SignIn" && <SignIn />}
       {database && selected === "SignUp" && <SignUp />}
+      {database && selected === "SignInWithEmailLink" && (
+        <SignInWithEmailLink />
+      )}
+      {/* User is Signed  in */}
       {database && selected === "SignOut" && <SignOut />}
       {database && selected === "UpdateEmail" && <UpdateEmail />}
       {database && selected === "UpdatePassword" && <UpdatePassword />}
@@ -351,7 +374,6 @@ export default function FunctSelectForm() {
       {database && selected === "EmailUser" && <EmailUser />}
       {database && selected === "VerifyEmail" && <VerifyEmail />}
       {database && selected === "UpdateAvatar" && <UpdateAvatar />}
-      {/* User is Signed  in */}
     </div>
   );
 }

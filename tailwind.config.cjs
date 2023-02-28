@@ -16,5 +16,6 @@ module.exports = {
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/aspect-ratio"),
     require("tailwind-scrollbar-hide"),
+    [require("daisyui")],
   ],
 };

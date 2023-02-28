@@ -3,6 +3,7 @@ import vanillaCone from "../assets/icons/vanilla.png";
 import reactHookFormLogo from "../assets/icons/react-hook-form.png";
 import { useForm } from "../hooks/useForm";
 import { useDatabase } from "../hooks/useDatabase";
+import daisyUiLogo from "../assets/icons/daisyui.png";
 
 export default function formSelectForm() {
   const [formSelected, setFormSelected] = useState("");
@@ -62,6 +63,27 @@ export default function formSelectForm() {
               />
               <label className=" font-semibold cursor-pointer my-auto">
                 React Hook Form
+              </label>
+            </div>
+
+            <div
+              onClick={() => changeForm("daisyUI")}
+              style={form === "daisyUI" ? { opacity: "1" } : null}
+              className={` ${
+                form === "daisyUI"
+                  ? "border-zinc-300 dark:border-transparent"
+                  : ""
+              } cursor-pointer px-4 py-2 dark:text-pink-200 flex dark:hover:text-pink-50 dark:opacity-50 dark:hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg hover:bg-white text-pink-400 hover:text-pink-500  border-2 border-transparent`}
+            >
+              <img className=" h-8 pr-2" src={daisyUiLogo} />
+              <input
+                type="radio"
+                name="database"
+                value="daisyUI"
+                className="text-pink-400 font-semibold hidden cursor-pointer"
+              />
+              <label className=" font-semibold cursor-pointer my-auto">
+                DaisyUI
               </label>
             </div>
           </div>
