@@ -104,7 +104,7 @@ export default function InfoBar() {
       >
         <div
           className={`${
-            minimized ? "mx-auto" : "ml-auto  z-50"
+            minimized ? "mx-auto" : "ml-auto  mr-2"
           } rounded-full border h-6 w-6 cursor-pointer hover:bg-white/25`}
           onClick={() => {
             setMinimized(!minimized);
@@ -185,6 +185,7 @@ export default function InfoBar() {
               style={{ maxWidth: "2.6rem" }}
               className="overflow-hidden flex mx-auto"
             >
+              <div className="bg-green-500 w-3  h-3 rounded-full absolute right-5 border-white border-2 dark:border-black" />
               {avatar ? (
                 <img
                   src={avatar}
@@ -213,6 +214,7 @@ export default function InfoBar() {
                 <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-auto">
                   Avatar:
                 </h2>
+                <div className="bg-green-500 w-3  h-3 rounded-full absolute right-5 border-white border-2 dark:border-black" />
                 <div style={{ maxWidth: "2.6rem" }} className="overflow-hidden">
                   {avatar ? (
                     <img
