@@ -61,8 +61,15 @@ export function App() {
           <FaSun className="dark:hidden justify-center m-auto h-full" />
           <BsFillMoonStarsFill className="hidden dark:block m-auto h-full" />
         </div>
-        <div className="fixed right-5">
-          <InfoBar />
+        <div
+          className="fixed right-5 rounded-xl overflow-hidden"
+          style={{
+            maxHeight: "calc(100vh - 9.25rem - 10px)",
+            minHeight: "calc(100vh - 9.25rem - 10px)",
+            bottom: "10px",
+          }}
+        >
+          <InfoBar className="relative" style={{}} />
         </div>
       </div>
     </div>

@@ -2,9 +2,15 @@ import React from "react";
 import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 
+// if (database === "firebase") {
+//   import { useFirebase } from "../../../hooks/useFirebase";
+//   import { useAuth } from "../../../hooks/useAuth";
+// }
+
 const SignInFormRHF = () => {
   const { database } = useDatabase();
   const { form, authFunction, validation } = useForm();
+
   return (
     <div className="dark:text-gray-600 font-semibold text-xl mt-5 text-white">
       <h1 className="text-3xl text-center">Sign In</h1>

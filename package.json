@@ -26,7 +26,8 @@
     "react-toastify": "^9.1.1",
     "react-tooltip": "^5.7.5",
     "reactfire": "^4.2.2",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
