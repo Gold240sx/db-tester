@@ -73,14 +73,14 @@ export default function formSelectForm() {
                 form === "daisyUI"
                   ? "border-zinc-300 dark:border-transparent"
                   : ""
-              } cursor-pointer px-4 py-2 dark:text-pink-200 flex dark:hover:text-pink-50 dark:opacity-50 dark:hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg hover:bg-white text-pink-400 hover:text-pink-500  border-2 border-transparent`}
+              } cursor-pointer px-4 py-2 dark:text-purple-400 flex dark:hover:text-purple-300 dark:opacity-50 dark:hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg hover:bg-white text-purple-400 hover:text-purple-600  border-2 border-transparent`}
             >
               <img className=" h-8 pr-2" src={daisyUiLogo} />
               <input
                 type="radio"
                 name="database"
                 value="daisyUI"
-                className="text-pink-400 font-semibold hidden cursor-pointer"
+                className="text-purple-800 font-semibold hidden cursor-pointer"
               />
               <label className=" font-semibold cursor-pointer my-auto">
                 DaisyUI
