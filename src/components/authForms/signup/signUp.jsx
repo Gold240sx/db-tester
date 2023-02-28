@@ -3,7 +3,6 @@ import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import SignUpFormVanilla from "./signUpFormVanilla.jsx";
 import SignUpFormRHF from "./signUpFormRHF.jsx";
-import BeachBG from "../../../assets/images/beach.jpeg";
 import SignUpFormDUI from "./signUpFormDUI";
 
 export default function SignUp() {
@@ -11,12 +10,8 @@ export default function SignUp() {
   const { database } = useDatabase();
 
   return (
-    <div className="w-full h-full relative">
-      <img
-        className="w-full h-full z-10 opacity-40 object-cover absolute"
-        src={BeachBG}
-      />
-      <div className="text-white">
+    <div className="relative mt-5 w-full rounded-lg bg-white p-5">
+      <div className=" text-white">
         {database && form === "vanilla" && authFunction === "SignUp" && (
           <SignUpFormVanilla />
         )}

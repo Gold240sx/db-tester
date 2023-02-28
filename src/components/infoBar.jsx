@@ -93,28 +93,28 @@ export default function InfoBar() {
   return (
     <div
       ref={infoBarRef}
-      className="min-w-fit w-30 p-5 flex-col dark:bg-black bg-white rounded-2xl h-fit min-h-[448px] w-full overflow-hidden ease-in-out"
+      className="w-30 h-fit min-h-[448px] w-full min-w-fit flex-col overflow-hidden rounded-2xl bg-white p-5 ease-in-out dark:bg-black"
     >
       {/* fixed ^^ later */}
       <div
         ref={scrollableRef}
-        className="overflow-y-auto h-full scrollbar-hide"
+        className="h-full overflow-y-auto scrollbar-hide"
       >
         <div
           className={`${
             minimized ? "mx-auto" : "ml-auto  mr-2"
-          } rounded-full border h-6 w-6 cursor-pointer hover:bg-white/25`}
+          } h-6 w-6 cursor-pointer rounded-full border hover:bg-white/25`}
           onClick={() => {
             setMinimized(!minimized);
           }}
         >
-          {!minimized ? <p className="w-6 text-center bg-red">-</p> : null}
+          {!minimized ? <p className="bg-red w-6 text-center">-</p> : null}
           {minimized ? <p className="w-6 text-center">+</p> : null}
         </div>
         <div style={{ maxHeight: "calc(min(532px, 60vh))" }} className="">
           {!minimized && (
-            <div className="flex my-3">
-              <h2 className="my-auto mr-2  font-semibold text-right ml-auto">
+            <div className="my-3 flex">
+              <h2 className="my-auto mr-2  ml-auto text-right font-semibold">
                 Form:
               </h2>
               {form === "vanilla" ? (
@@ -127,10 +127,10 @@ export default function InfoBar() {
             </div>
           )}
           {!minimized && (
-            <div className="flex my-3">
+            <div className="my-3 flex">
               {database && (
-                <div className="flex flex-row ml-auto">
-                  <h2 className="my-auto mr-2 font-semibold ml-auto">
+                <div className="ml-auto flex flex-row">
+                  <h2 className="my-auto mr-2 ml-auto font-semibold">
                     Database:
                   </h2>
                   {database === "Firebase" ? (
@@ -149,50 +149,50 @@ export default function InfoBar() {
 
           {/* minimized preview */}
           {minimized && (
-            <div className="flex my-3 flex-col w-10">
-              <p className="dark:text-white/40 text-3xl -rotate-90 whitespace-nowrap  mt-36 text-zinc-400">
+            <div className="my-3 flex w-10 flex-col">
+              <p className="mt-36 -rotate-90 whitespace-nowrap text-3xl  text-zinc-400 dark:text-white/40">
                 Project Info
               </p>
               {form === "vanilla" ? (
-                <img className="h-10 mx-auto w-100 mt-10" src={vanillaLogo} />
+                <img className="w-100 mx-auto mt-10 h-10" src={vanillaLogo} />
               ) : form === "reactHookForm" ? (
                 <img
-                  className="h-10 mx-auto w-100 mt-10"
+                  className="w-100 mx-auto mt-10 h-10"
                   src={reactHookFormLogo}
                 />
               ) : form === "daisyUI" ? (
-                <img className="h-10 mx-auto w-100 mt-10" src={daisyUILogo} />
+                <img className="w-100 mx-auto mt-10 h-10" src={daisyUILogo} />
               ) : null}
             </div>
           )}
           {minimized && (
-            <div className="flex my-3">
+            <div className="my-3 flex">
               {database === "Firebase" ? (
-                <img className="h-8 mx-auto " src={firebaseLogo} />
+                <img className="mx-auto h-8 " src={firebaseLogo} />
               ) : database === "Supabase" ? (
-                <img className="h-8 mx-auto" s src={supabaseLogo} />
+                <img className="mx-auto h-8" s src={supabaseLogo} />
               ) : database === "ReactFire" ? (
-                <img className="h-8 mx-auto " src={reactFireLogo} />
+                <img className="mx-auto h-8 " src={reactFireLogo} />
               ) : database === "Pocketbase" ? (
-                <img className="h-8 mx-auto " src={pocketbaseLogo} />
+                <img className="mx-auto h-8 " src={pocketbaseLogo} />
               ) : null}
             </div>
           )}
           {minimized && (
             <div
               style={{ maxWidth: "2.6rem" }}
-              className="overflow-hidden flex mx-auto"
+              className="mx-auto flex overflow-hidden"
             >
-              <div className="bg-green-500 w-3  h-3 rounded-full absolute right-5 border-white border-2 dark:border-black" />
+              <div className="absolute right-5  h-3 w-3 rounded-full border-2 border-white bg-green-500 dark:border-black" />
               {avatar ? (
                 <img
                   src={avatar}
-                  className="rounded-full h-10 object-cover mx-auto"
+                  className="mx-auto h-10 rounded-full object-cover"
                 />
               ) : (
                 <img
                   src={AvatarDefault}
-                  className="rounded-full w-14 mx-auto"
+                  className="mx-auto w-14 rounded-full"
                 />
               )}
             </div>
@@ -203,64 +203,64 @@ export default function InfoBar() {
           {!minimized && (
             // User  info
             <div id="info-bar-user-Info  mt-3">
-              <h1 className="my-auto text-xl font-semibold text-right ml-auto underline text-gray-400">
+              <h1 className="my-auto ml-auto text-right text-xl font-semibold text-gray-400 underline">
                 User Info
               </h1>
 
               {/* Avatar*/}
-              <div className="flex mt-2">
-                <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-auto">
+              <div className="mt-2 flex">
+                <h2 className="my-auto mr-2 ml-auto mt-auto text-right font-semibold">
                   Avatar:
                 </h2>
-                <div className="bg-green-500 w-3  h-3 rounded-full absolute right-5 border-white border-2 dark:border-black" />
+                <div className="absolute right-5  h-3 w-3 rounded-full border-2 border-white bg-green-500 dark:border-black" />
                 <div style={{ maxWidth: "2.6rem" }} className="overflow-hidden">
                   {avatar ? (
                     <img
                       src={avatar}
-                      className="rounded-full h-10 object-cover"
+                      className="h-10 rounded-full object-cover"
                     />
                   ) : (
-                    <img src={AvatarDefault} className="rounded-full w-14" />
+                    <img src={AvatarDefault} className="w-14 rounded-full" />
                   )}
                 </div>
               </div>
 
               {/* Username */}
               <div className="flex">
-                <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
+                <h2 className="my-auto mr-2 ml-auto mt-2 text-right font-semibold">
                   Username:
                 </h2>
-                <p className="text-gray-400 mt-auto capitalize">
+                <p className="mt-auto capitalize text-gray-400">
                   {username ? username : "undefined"}
                 </p>
               </div>
 
               {/* Displayname */}
               <div className="flex">
-                <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
+                <h2 className="my-auto mr-2 ml-auto mt-2 text-right font-semibold">
                   Display Name:
                 </h2>
-                <p className="text-gray-400 mt-auto capitalize">
+                <p className="mt-auto capitalize text-gray-400">
                   {displayname ? displayname : "undefined"}
                 </p>
               </div>
 
               {/* Email */}
               <div className="flex">
-                <h2 className="my-auto mr-2  font-semibold text-right ml-auto mt-2">
+                <h2 className="my-auto mr-2  ml-auto mt-2 text-right font-semibold">
                   Email:
                 </h2>
-                <p className="text-gray-400 mt-auto lowercase">
+                <p className="mt-auto lowercase text-gray-400">
                   {email ? email : "undefined"}
                 </p>
               </div>
 
               {/*Address */}
-              <div className="flex mt-2">
-                <h2 className="mr-2 font-semibold text-right ml-auto">
+              <div className="mt-2 flex">
+                <h2 className="mr-2 ml-auto text-right font-semibold">
                   Address:
                 </h2>
-                <p className="text-gray-400 mt-auto capitalize">
+                <p className="mt-auto capitalize text-gray-400">
                   {address ? address.ln1 : "undefined"} <br />
                   {address ? `${address.city}, ` : null}
                   {address ? `${address.state} ` : null}
@@ -270,40 +270,40 @@ export default function InfoBar() {
 
               {/* First Name */}
               <div className="flex">
-                <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
+                <h2 className="my-auto mr-2 ml-auto mt-2 text-right font-semibold">
                   First Name:
                 </h2>
-                <p className="text-gray-400 mt-auto capitalize">
+                <p className="mt-auto capitalize text-gray-400">
                   {firstName ? firstName : "undefined"}
                 </p>
               </div>
 
               {/* Last Name */}
               <div className="flex">
-                <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
+                <h2 className="my-auto mr-2 ml-auto mt-2 text-right font-semibold">
                   Last Name:
                 </h2>
-                <p className="text-gray-400 mt-auto capitalize">
+                <p className="mt-auto capitalize text-gray-400">
                   {lastName ? lastName : "undefined"}
                 </p>
               </div>
 
               {/* Role */}
               <div className="flex">
-                <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
+                <h2 className="my-auto mr-2 ml-auto mt-2 text-right font-semibold">
                   Role:
                 </h2>
-                <p className="text-gray-400 mt-auto capitalize">
+                <p className="mt-auto capitalize text-gray-400">
                   {role ? role : "undefined"}
                 </p>
               </div>
 
               {/* authFunction */}
               <div className="flex">
-                <h2 className="my-auto mr-2 font-semibold text-right ml-auto mt-2">
+                <h2 className="my-auto mr-2 ml-auto mt-2 text-right font-semibold">
                   Auth Function:
                 </h2>
-                <p className="text-gray-400 mt-auto capitalize">
+                <p className="mt-auto capitalize text-gray-400">
                   {authFunction ? authFunction : "undefined"}
                 </p>
               </div>
@@ -312,15 +312,15 @@ export default function InfoBar() {
               {/* USERS SECTION */}
               {!minimized && (
                 <div id="info-bar-users-Info" className="  mt-5">
-                  <h1 className="my-auto text-xl font-semibold text-right ml-auto underline text-gray-400">
+                  <h1 className="my-auto ml-auto text-right text-xl font-semibold text-gray-400 underline">
                     Users
                   </h1>
                   {/*  */}
                   <div className="flex">
-                    <h1 className="my-auto text-lg font-semibold text-left mr-auto text-gray-600">
+                    <h1 className="my-auto mr-auto text-left text-lg font-semibold text-gray-600">
                       All Users
                     </h1>
-                    <h1 className="my-auto text-lg font-semibold text-right ml-auto text-gray-600">
+                    <h1 className="my-auto ml-auto text-right text-lg font-semibold text-gray-600">
                       Active
                     </h1>
                     {/* Users Avatars Section - Avatar: tooltip to the username, link to the dynamic user page*/}

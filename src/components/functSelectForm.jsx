@@ -27,13 +27,13 @@ export default function FunctSelectForm() {
   const tailRadioButtonStyles = (
     value
   ) => `cursor-pointer border-white border-2 px-2 rounded-md active:border-white/50 hover:box-shadow-lg
-  ${
-    selected === value
-      ? "border-lime-400 dark:text-lime-600 dark:bg-lime-800/30 bg-zinc-300 text-white"
-      : ""
-  }
-  ${!selected ? "dark:hover:bg-lime-800/50 dark:hover:text-white/90" : ""}
-`;
+    ${
+      selected === value
+        ? "border-lime-400 dark:text-lime-600 dark:bg-lime-800/30 bg-zinc-300 text-white"
+        : ""
+    }
+    ${!selected ? "dark:hover:bg-lime-800/50 dark:hover:text-white/90" : ""}
+  `;
 
   const handleAuthFunction = (value) => {
     changeAuthFunction(value);
@@ -41,21 +41,19 @@ export default function FunctSelectForm() {
   };
 
   return (
-    <div className="rounded-2xl dark:bg-black/25  bg-white/25 mx-auto h-fit px-8 py-4 mt-10 w-[520px]">
-      <h1 className="dark:text-gray-600 font-bold text-4xl text-center text-slate-300 m-4">
+    <div className="mx-auto mt-10  h-fit w-[563px] rounded-2xl bg-white/25 px-8 py-4 dark:bg-black/25">
+      <h1 className="m-4 text-center text-4xl font-bold text-slate-300 dark:text-gray-600">
         Auth Functions...
       </h1>
       {/* Auth Functions Radio Button Select */}
-      <form className="text-white flex-col whitespace-none mx-auto flex">
+      <form className="whitespace-none mx-auto flex flex-col text-white">
         {/* Row 1 */}
-        <div className="flex gap-3 justify-center my-2">
-          {" "}
+        <div className="my-2 flex justify-center gap-3">
+          {/* Sign In */}
           <div className="flex gap-2">
-            {/*  Sign In */}
             <label
               htmlFor="SIGN_IN-Radio"
               className={tailRadioButtonStyles("SignIn")}
-              onClick={() => handleAuthFunction("SignIn")}
             >
               SignIn
             </label>
@@ -125,7 +123,7 @@ export default function FunctSelectForm() {
           </div>
         </div>
         {/* Row 2 */}
-        <div className="flex gap-3 justify-center  my-2">
+        <div className="my-2 flex justify-center  gap-3">
           {/* Update Email */}
           <div className="flex gap-2">
             <label
@@ -183,7 +181,7 @@ export default function FunctSelectForm() {
           </div>
         </div>
         {/* Row 3 */}
-        <div className="flex gap-3 justify-center  my-2">
+        <div className="my-2 flex justify-center  gap-3">
           {/* Create User */}
           <div className="flex gap-2">
             <label
@@ -260,7 +258,7 @@ export default function FunctSelectForm() {
           </div>
         </div>
         {/* Row 4 */}
-        <div className="flex gap-3 justify-center  my-2">
+        <div className="my-2 flex justify-center  gap-3">
           {/* Downgrade User */}
           <div className="flex gap-2">
             <label
@@ -316,7 +314,7 @@ export default function FunctSelectForm() {
             />
           </div>
         </div>
-        <div className="flex gap-3 justify-center  my-2">
+        <div className="my-2 flex justify-center  gap-3">
           {/* Verify Email */}
           <div className="flex gap-2">
             <label
