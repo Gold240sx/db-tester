@@ -73,8 +73,6 @@ export default function InfoBar() {
   //     }
   //   }, []);
 
-  console.log("mode", mode);
-
   //   const gradientOverlay = {
   //     // position: "absolute",
   //     top: 0,

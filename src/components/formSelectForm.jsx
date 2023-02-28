@@ -29,9 +29,9 @@ export default function formSelectForm() {
               style={form === "vanilla" ? { opacity: "1" } : null}
               className={` ${
                 form === "vanilla"
-                  ? "border-zinc-300 dark:border-transparent"
-                  : ""
-              } cursor-pointer px-4 py-2 dark:text-orange-200 dark:hover:text-orange-50 text-[#e8c298] dark:hover:bg-white/25 hover:text-[#cea373] hover:bg-white rounded-full dark:bg-white/10 flex hover:shadow-lg dark:opacity-50 bg-white border-2 border-transparent`}
+                  ? "border-zinc-300 dark:border-transparent text-[#cea373] opacity-100"
+                  : "text-[#e1c3a1]"
+              } cursor-pointer px-4 py-2 dark:text-orange-200 dark:hover:text-orange-50  dark:hover:bg-white/25 hover:text-[#cea373] hover:bg-white rounded-full dark:bg-white/10 flex hover:shadow-lg dark:opacity-50 bg-white border-2 border-transparent`}
             >
               <img className=" h-8 pr-2" src={vanillaCone} />
               <input
@@ -50,9 +50,9 @@ export default function formSelectForm() {
               style={form === "reactHookForm" ? { opacity: "1" } : null}
               className={` ${
                 form === "reactHookForm"
-                  ? "border-zinc-300 dark:border-transparent"
+                  ? "border-zinc-300 dark:border-transparent text-pink-500"
                   : ""
-              } cursor-pointer px-4 py-2 dark:text-pink-200 flex dark:hover:text-pink-50 dark:opacity-50 dark:hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg hover:bg-white text-pink-400 hover:text-pink-500  border-2 border-transparent`}
+              } cursor-pointer px-4 py-2 dark:text-pink-200 flex dark:hover:text-pink-50 dark:opacity-50 dark:hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg hover:bg-white text-pink-300 hover:text-pink-500  border-2 border-transparent`}
             >
               <img className=" h-8 pr-2" src={reactHookFormLogo} />
               <input
@@ -71,7 +71,7 @@ export default function formSelectForm() {
               style={form === "daisyUI" ? { opacity: "1" } : null}
               className={` ${
                 form === "daisyUI"
-                  ? "border-zinc-300 dark:border-transparent"
+                  ? "border-zinc-300 dark:border-transparent text-purple-600 dark:text-purple-300"
                   : ""
               } cursor-pointer px-4 py-2 dark:text-purple-400 flex dark:hover:text-purple-300 dark:opacity-50 dark:hover:bg-white/25 rounded-full dark:bg-white/10 bg-white hover:shadow-lg hover:bg-white text-purple-400 hover:text-purple-600  border-2 border-transparent`}
             >
