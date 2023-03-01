@@ -1,185 +1,185 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: "Poppins", sans-serif;
-  }
-  a {
-    font-family: "Roboto", sans-serif;
-  }
-  * {
-    box-sizing: border-box;
-  }
-  a,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  label,
-  img,
-  div,
-  section,
-  p {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
+	html {
+		font-family: 'Poppins', sans-serif;
+	}
+	a {
+		font-family: 'Roboto', sans-serif;
+	}
+	* {
+		box-sizing: border-box;
+	}
+	a,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	label,
+	img,
+	div,
+	section,
+	p {
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none; /* Safari */
+		-khtml-user-select: none; /* Konqueror HTML */
+		-moz-user-select: none; /* Old versions of Firefox */
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
-  }
+	}
 
-  /* For Webkit-based browsers (Chrome, Safari and Opera) */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+	/* For Webkit-based browsers (Chrome, Safari and Opera) */
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
 
-  /* For IE, Edge and Firefox */
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  /* Change Autocomplete styles in Safari*/
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    background-color: transparent;
-  }
-  /* Change Autocomplete styles in Chrome*/
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus input:-webkit-autofill,
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-    -webkit-text-fill-color: rgb(134, 134, 134);
-    /* -webkit-box-shadow: 0 0 0px 1000px #000 inset; */
-    transition: 5000s ease-in-out 0s;
-  }
-  img,
-  svg {
-    user-select: none;
-    /* pointer-events: none;   this will disable the click event on the icons */
-  }
-  /* hides the safari auto complete on webforms */
-  input::-webkit-contacts-auto-fill-button,
-  input::-webkit-credentials-auto-fill-button {
-    visibility: hidden;
-    display: none !important;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-  }
+	/* For IE, Edge and Firefox */
+	.scrollbar-hide {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+	/* Change Autocomplete styles in Safari*/
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	input:-webkit-autofill:active {
+		transition: background-color 5000s ease-in-out 0s;
+		background-color: transparent;
+	}
+	/* Change Autocomplete styles in Chrome*/
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:hover,
+	select:-webkit-autofill:focus {
+		-webkit-text-fill-color: rgb(134, 134, 134);
+		/* -webkit-box-shadow: 0 0 0px 1000px #000 inset; */
+		transition: 5000s ease-in-out 0s;
+	}
+	img,
+	svg {
+		user-select: none;
+		/* pointer-events: none;   this will disable the click event on the icons */
+	}
+	/* hides the safari auto complete on webforms */
+	input::-webkit-contacts-auto-fill-button,
+	input::-webkit-credentials-auto-fill-button {
+		visibility: hidden;
+		display: none !important;
+		pointer-events: none;
+		position: absolute;
+		right: 0;
+	}
 
-  /* the floating label's containing div MUST include the .floating-label-container class */
-  /* only works for rimple label / input fields matching: */
-  div.floating-label-container:has(.floating-label + input) .floating-label {
-    /* natural state: label */
-    translate: 50px 22px;
-    transition: 0.25s ease-in-out;
-  }
-  div.floating-label-container:has(.floating-label + input:focus)
-    .floating-label {
-    /* focus state: label */
-    translate: 0px 0px;
-  }
+	/* the floating label's containing div MUST include the .floating-label-container class */
+	/* only works for rimple label / input fields matching: */
+	div.floating-label-container:has(.floating-label + input) .floating-label {
+		/* natural state: label */
+		translate: 50px 20px;
+		transition: 0.25s ease-in-out;
+	}
+	div.floating-label-container:has(.floating-label + input:focus)
+		.floating-label {
+		/* focus state: label */
+		translate: 0px 0px;
+	}
 
-  div.floating-label-container:has(.floating-label + input) input {
-    /* natural state: input */
-    translate: 0px -22px !important;
-    transition: 0.25s ease-in-out;
-  }
-  div.floating-label-container:has(.floating-label + input)
-    input:focus:placeholder-shown {
-    /* focus state: input */
-    translate: 0px 0px !important;
-    margin-bottom: 22px;
-  }
-  div.floating-label-container:has(
-      .floating-label + input:placeholder-shown + svg
-    )
-    .icon {
-    /* natural state-no value: icon */
-    z-index: 100 !important;
-    cursor: pointer;
-    transition: 0.25s ease-in-out;
-  }
-  div.floating-label-container:has(.floating-label + input:focus) .icon {
-    /* focus state-no value: icon */
-    --tw-translate-x: 0px;
-    --tw-translate-y: 73px;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
-    transition: 0.25s ease-in-out;
-  }
-  div.floating-label-container:has(
-      .floating-label + input:not(:placeholder-shown)
-    )
-    .icon {
-    /* focus state-with value: icon */
-    --tw-translate-x: 0px;
-    --tw-translate-y: 73px !important;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
-    transition: 0.25s ease-in-out;
-  }
-  /* Any Icons on the left of an input */
-  div.floating-label-container:has(.floating-label + input:focus) .icon-left {
-    opacity: 0.15;
-    --tw-translate-y: 40px !important;
-    transition: 0.25s ease-in-out;
-  }
-  div.floating-label-container:has(
-      .floating-label + input:not(:placeholder-shown)
-    )
-    .icon-left {
-    opacity: 0 !important;
-    transition: 0.25s ease-in-out;
-  }
-  /*  icons left of the input with another icon on the right */
-  div.floating-label-container:has(.floating-label + input:focus)
-    .icon-left-dual {
-    /* focus state-no value: icon */
-    --tw-translate-x: 0px;
-    --tw-translate-y: 104px !important;
-    opacity: 0.15;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
-    transition: 0.25s ease-in-out;
-  }
-  div.floating-label-container:has(
-      .floating-label + input:not(:placeholder-shown)
-    )
-    .icon-left-dual {
-    /* focus state-with value: icon */
-    --tw-translate-x: 0px;
-    opacity: 0 !important;
-    --tw-translate-y: 104px !important;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
-    transition: 0.25s ease-in-out;
-  }
-  /* the next two keeps the positioning of the label when a value is present. */
-  /* Must include a placeholder */
-  div.floating-label-container:has(
-      .floating-label + input:not(:placeholder-shown)
-    )
-    .floating-label {
-    translate: 0px 0px;
-    transition: 0.25s ease-in-out;
-  }
-  div.floating-label-container:has(
-      .floating-label + input:not(:placeholder-shown)
-    )
-    input {
-    translate: 0px 0px !important;
-    margin-bottom: 22px;
-    transition: 0.25s ease-in-out;
-  }
+	div.floating-label-container:has(.floating-label + input) input {
+		/* natural state: input */
+		translate: 0px -22px !important;
+		transition: 0.25s ease-in-out;
+	}
+	div.floating-label-container:has(.floating-label + input)
+		input:focus:placeholder-shown {
+		/* focus state: input */
+		translate: 0px 0px !important;
+		margin-bottom: 22px;
+	}
+	div.floating-label-container:has(
+			.floating-label + input:placeholder-shown + svg
+		)
+		.icon {
+		/* natural state-no value: icon */
+		z-index: 100 !important;
+		cursor: pointer;
+		transition: 0.25s ease-in-out;
+	}
+	div.floating-label-container:has(.floating-label + input:focus) .icon {
+		/* focus state-no value: icon */
+		--tw-translate-x: 0px;
+		--tw-translate-y: 73px;
+		transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+		transition: 0.25s ease-in-out;
+	}
+	div.floating-label-container:has(
+			.floating-label + input:not(:placeholder-shown)
+		)
+		.icon {
+		/* focus state-with value: icon */
+		--tw-translate-x: 0px;
+		--tw-translate-y: 73px !important;
+		transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+		transition: 0.25s ease-in-out;
+	}
+	/* Any Icons on the left of an input */
+	div.floating-label-container:has(.floating-label + input:focus) .icon-left {
+		opacity: 0.15;
+		translate: 0px 18px !important;
+		transition: 0.25s ease-in-out;
+	}
+	div.floating-label-container:has(
+			.floating-label + input:not(:placeholder-shown)
+		)
+		.icon-left {
+		opacity: 0 !important;
+		transition: 0.25s ease-in-out;
+	}
+	/*  icons left of the input with another icon on the right */
+	div.floating-label-container:has(.floating-label + input:focus)
+		.icon-left-dual {
+		/* focus state-no value: icon */
+		--tw-translate-x: 0px;
+		--tw-translate-y: 104px !important;
+		opacity: 0.15;
+		transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+		transition: 0.25s ease-in-out;
+	}
+	div.floating-label-container:has(
+			.floating-label + input:not(:placeholder-shown)
+		)
+		.icon-left-dual {
+		/* focus state-with value: icon */
+		--tw-translate-x: 0px;
+		opacity: 0 !important;
+		--tw-translate-y: 104px !important;
+		transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+		transition: 0.25s ease-in-out;
+	}
+	/* the next two keeps the positioning of the label when a value is present. */
+	/* Must include a placeholder */
+	div.floating-label-container:has(
+			.floating-label + input:not(:placeholder-shown)
+		)
+		.floating-label {
+		translate: 0px 0px;
+		transition: 0.25s ease-in-out;
+	}
+	div.floating-label-container:has(
+			.floating-label + input:not(:placeholder-shown)
+		)
+		input {
+		translate: 0px 0px !important;
+		margin-bottom: 22px;
+		transition: 0.25s ease-in-out;
+	}
 }

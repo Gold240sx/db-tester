@@ -143,17 +143,14 @@ const SignUpFormVanilla = () => {
 					<h2 className=" relative ml-5 text-gray-400">
 						...Or create a username and password:
 					</h2>
-					<div className="floating-label-container m-4 flex h-fit flex-col bg-orange-400">
-						<div className=" absolute mr-auto flex h-fit w-fit cursor-pointer">
-							{' '}
-							<MdEmail
-								alt=""
-								className="icon icon-left mr-auto ml-2 h-8 w-8 translate-y-[20px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
-							/>
-						</div>
+					<div className="floating-label-container m-4 flex h-fit flex-col">
+						<MdEmail
+							alt=""
+							className="icon-left absolute mr-auto ml-2 h-8 w-8 translate-y-[20px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
+						/>
 						<label
 							htmlFor="email"
-							className="floating-label z-50 mb-2 text-xl text-gray-400 dark:text-white/50"
+							className="floating-label z-50 mb-2 text-xl text-gray-400 dark:text-white/30"
 						>
 							Email
 							{/* place the validation icon below: here > */}
@@ -176,10 +173,10 @@ const SignUpFormVanilla = () => {
 								this.previousSibling.classList.remove('focus');
 								this.previousSibling.classList.remove('focus');
 							}}
-							className="rounded border border-gray-300 bg-black/10 font-normal autofill:ring-transparent  focus:border-transparent  focus:ring-4 dark:border-none dark:bg-black/25 dark:text-white"
+							className="-mb-4 rounded border border-gray-300 bg-black/10 font-normal  autofill:ring-transparent  focus:border-transparent focus:ring-4 dark:border-none dark:bg-black/25 dark:text-white"
 						/>
 					</div>{' '}
-					<div className="floating-label-container m-4 -mt-14 flex w-auto -translate-y-8 flex-col">
+					<div className="floating-label-container m-4 -mt-20 flex w-auto flex-col">
 						<div className="flex w-auto flex-col">
 							<Si1Password
 								alt=""
@@ -205,7 +202,7 @@ const SignUpFormVanilla = () => {
 						</div>
 						<label
 							htmlFor="password"
-							className="floating-label z-50 mb-2 text-xl text-gray-400 dark:text-white/50"
+							className="floating-label z-50 mb-2 text-xl text-gray-400 dark:text-white/30"
 						>
 							Password
 							{/* place the validation icon below: here > */}
@@ -236,7 +233,7 @@ const SignUpFormVanilla = () => {
 					</div>
 					{/* Create validation information here */}
 					{/* Password Preview: {passwordPreview} */}
-					<div className="relative -mt-6 flex flex-col pb-6">
+					<div className="relative -mt-2 flex flex-col pb-6">
 						<button
 							type="button"
 							className={` ${
