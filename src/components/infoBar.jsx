@@ -13,7 +13,7 @@ import { DbContext, DbProvider } from "../context/DbContext";
 import { useTheme } from "../hooks/useTheme";
 
 export default function InfoBar() {
-  const [minimized, setMinimized] = useState();
+  const [minimized, setMinimized] = useState(true);
   const [showTopGradient, setShowTopGradient] = useState(false);
   const [showBottomGradient, setShowBottomGradient] = useState(false);
   const [infobarHeight, setInfobarHeight] = useState(0);

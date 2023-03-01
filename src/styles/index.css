@@ -71,7 +71,9 @@
     user-select: none;
     /* pointer-events: none;   this will disable the click event on the icons */
   }
-  input::-webkit-contacts-auto-fill-button {
+  /* hides the safari auto complete on webforms */
+  input::-webkit-contacts-auto-fill-button,
+  input::-webkit-credentials-auto-fill-button {
     visibility: hidden;
     display: none !important;
     pointer-events: none;
@@ -83,14 +85,12 @@
   /* only works for rimple label / input fields matching: */
   div.floating-label-container:has(.floating-label + input) .floating-label {
     /* natural state: label */
-    translate: 20px 22px;
-    color: rgba(255, 255, 255, 0.5);
+    translate: 50px 22px;
     transition: 0.25s ease-in-out;
   }
   div.floating-label-container:has(.floating-label + input:focus)
     .floating-label {
     /* focus state: label */
-    color: rgb(255, 255, 255);
     translate: 0px 0px;
   }
 
@@ -116,11 +116,10 @@
   }
   div.floating-label-container:has(.floating-label + input:focus) .icon {
     /* focus state-no value: icon */
-    color: rgb(255, 255, 255);
     --tw-translate-x: 0px;
-    --tw-translate-y: 74px;
+    --tw-translate-y: 73px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y));
-    transition: 0.3s ease-in-out;
+    transition: 0.25s ease-in-out;
   }
   div.floating-label-container:has(
       .floating-label + input:not(:placeholder-shown)
@@ -130,7 +129,41 @@
     --tw-translate-x: 0px;
     --tw-translate-y: 73px !important;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y));
-    transition: 0.3s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+  /* Any Icons on the left of an input */
+  div.floating-label-container:has(.floating-label + input:focus) .icon-left {
+    opacity: 0.15;
+    --tw-translate-y: 40px !important;
+    transition: 0.25s ease-in-out;
+  }
+  div.floating-label-container:has(
+      .floating-label + input:not(:placeholder-shown)
+    )
+    .icon-left {
+    opacity: 0 !important;
+    transition: 0.25s ease-in-out;
+  }
+  /*  icons left of the input with another icon on the right */
+  div.floating-label-container:has(.floating-label + input:focus)
+    .icon-left-dual {
+    /* focus state-no value: icon */
+    --tw-translate-x: 0px;
+    --tw-translate-y: 104px !important;
+    opacity: 0.15;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+    transition: 0.25s ease-in-out;
+  }
+  div.floating-label-container:has(
+      .floating-label + input:not(:placeholder-shown)
+    )
+    .icon-left-dual {
+    /* focus state-with value: icon */
+    --tw-translate-x: 0px;
+    opacity: 0 !important;
+    --tw-translate-y: 104px !important;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+    transition: 0.25s ease-in-out;
   }
   /* the next two keeps the positioning of the label when a value is present. */
   /* Must include a placeholder */
