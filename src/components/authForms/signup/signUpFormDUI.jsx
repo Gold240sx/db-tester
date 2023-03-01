@@ -7,7 +7,7 @@ const SignUpFormDUI = () => {
   const { form, authFunction, validation } = useForm();
 
   return (
-    <div className="text-gray-600 font-semibold text-xl mt-5">
+    <div className="mt-5 text-xl font-semibold text-gray-600">
       {database} {form} {authFunction} Form{" "}
       {validation ? "with Validation" : "without Validation"}
     </div>

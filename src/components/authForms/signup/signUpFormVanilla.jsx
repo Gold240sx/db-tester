@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { FirebaseContext, reactFireContext, SupabaseContext } from "./context";
 // import FirebaseSignupForm from "./FirebaseSignupForm";
 // import reactFireSignupForm from "./reactFireSignupForm";
 // import SupabaseSignupForm from "./SupabaseSignupForm";
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
 import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
@@ -10,15 +11,30 @@ import { useForm } from "../../../hooks/useForm";
 const SignUpFormVanilla = () => {
   const { database } = useDatabase();
   const { form, authFunction, validation } = useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState();
+  const [passwordPreview, setPasswordPreview] = useState("false");
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [functionSelected, setFunctionSelected] = useState();
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const handleSignUp = () => {
     console.log("Sign Up with Google");
   };
 
+  const handlePasswordPreview = () => {
+    setPasswordPreview(passwordPreview === "true" ? "false" : "true");
+    const passwordInput = document.querySelector("#password");
+    passwordPreview === "true"
+      ? (passwordInput.type = "password")
+      : (passwordInput.type = "text");
+  };
+
   return (
-    <div className=" text-gray-600 dark:text-gray-600">
+    <div className=" text-gray-600 dark:text-white ">
       <h1 className="mb-4 text-center text-3xl font-semibold">
         Create an account!
       </h1>
@@ -31,7 +47,7 @@ const SignUpFormVanilla = () => {
           >
             <button
               type="button"
-              className="dark:focus:ring-[#4285F4]/55 mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
+              className="mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
               onClick={handleSignUp}
             >
               <svg
@@ -120,35 +136,82 @@ const SignUpFormVanilla = () => {
         </section>
         <hr />
         <section>
-          <h2 className=" ml-5 text-gray-400">
-            ...Or Create a username and password:
+          <h2 className=" relative ml-5 text-gray-400">
+            ...Or create a username and password:
           </h2>
-          <div className="m-4 flex flex-col">
-            <label htmlFor="email" className="text-xl">
+          <div className="floating-label-container m-4 flex flex-col ">
+            <label htmlFor="email" className="floating-label mb-2 text-xl">
               Email
             </label>
             <input
               type="email"
               name="email"
               id="email"
-              className="rounded border border-gray-300 font-normal focus:border-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              value={email}
+              placeholder=" "
+              onFocus={() => {
+                this.previousSibling.classList.add("focus");
+                this.previousSibling.classList.add("focus");
+              }}
+              onBlur={() => {
+                this.previousSibling.classList.remove("focus");
+                this.previousSibling.classList.remove("focus");
+              }}
+              className="rounded border border-gray-300 font-normal autofill:ring-transparent focus:border-transparent focus:outline-blue-500  focus:ring-4 dark:border-none dark:bg-black/25 dark:text-white"
             />
           </div>{" "}
-          <div className="m-4 flex flex-col">
-            <label htmlFor="password" className="text-xl">
+          <div className="floating-label-container m-4 -mt-14 flex w-auto flex-col">
+            <div
+              onClick={() => handlePasswordPreview()}
+              className="ml-auto flex w-fit cursor-pointer"
+            >
+              {" "}
+              {passwordPreview === "false" && (
+                <BsFillEyeFill
+                  alt=""
+                  className="icon z-50 ml-auto mr-2 h-8 w-8 translate-y-[52px] fill-white/40 transition-all duration-[400ms] ease-in-out hover:fill-white/60 focus:fill-white/80"
+                />
+              )}
+              {passwordPreview === "true" && (
+                <BsFillEyeSlashFill
+                  alt=""
+                  className="icon z-50 ml-auto mr-2 h-8 w-8 translate-y-[52px] fill-white/40 transition-all duration-[400ms] ease-in-out hover:fill-white/60 focus:fill-white/80"
+                />
+              )}
+            </div>
+
+            <label htmlFor="password" className="floating-label mb-2 text-xl">
               Password
             </label>
+            {/*     const password = document.querySelector("input#password")    */}
             <input
               type="password"
               name="password"
               id="password"
-              className="rounded border border-gray-300 font-normal focus:border-transparent focus:outline-none focus:ring-2 focus:ring-green-500"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
+              placeholder=" "
+              onFocus={() => {
+                this.previousSibling.classList.add("focus");
+                this.previousSibling.classList.add("focus");
+              }}
+              onBlur={() => {
+                this.previousSibling.classList.remove("focus");
+                this.previousSibling.classList.remove("focus");
+              }}
+              className=" rounded border border-gray-300 font-normal focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-500 dark:border-transparent dark:bg-black/25  dark:text-white"
             />
           </div>
-          <div className="flex flex-col ">
+          Password Preview: {passwordPreview}
+          <div className="relative flex flex-col py-4">
             <button
               type="button"
-              class={` ${
+              className={` ${
                 loading ? "hidden" : "block"
               } mx-auto w-1/2 rounded-lg bg-blue-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 `}
               onClick={handleSignUp}
@@ -158,14 +221,14 @@ const SignUpFormVanilla = () => {
             <button
               disabled
               type="button"
-              class={` ${
+              className={` ${
                 loading ? "inline-flex" : "hidden"
               } mx-auto h-[48px] w-1/2 items-center justify-center rounded-lg border border-gray-200 bg-white py-2.5 px-5 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
             >
               <svg
                 aria-hidden="true"
                 role="status"
-                class="mr-3 inline h-4 w-4 animate-spin text-gray-200 dark:text-gray-600"
+                className="mr-3 inline h-4 w-4 animate-spin text-gray-200 dark:text-gray-600"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -182,6 +245,12 @@ const SignUpFormVanilla = () => {
               Loading...
             </button>
           </div>
+          <a
+            href="#"
+            className="ml-2 mt-4 text-blue-400 hover:text-blue-600 hover:underline dark:text-blue-400"
+          >
+            Already have an account?
+          </a>
         </section>
       </form>
     </div>

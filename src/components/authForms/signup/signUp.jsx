@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDatabase } from "../../../hooks/useDatabase";
 import { useForm } from "../../../hooks/useForm";
 import SignUpFormVanilla from "./signUpFormVanilla.jsx";
@@ -10,7 +9,7 @@ export default function SignUp() {
   const { database } = useDatabase();
 
   return (
-    <div className="relative mt-5 w-full rounded-lg bg-white p-5">
+    <div className="relative mt-5 w-full rounded-lg bg-white p-5 dark:bg-white/10">
       <div className=" text-white">
         {database && form === "vanilla" && authFunction === "SignUp" && (
           <SignUpFormVanilla />

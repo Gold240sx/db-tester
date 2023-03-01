@@ -13,7 +13,7 @@ import { DbContext, DbProvider } from "../context/DbContext";
 import { useTheme } from "../hooks/useTheme";
 
 export default function InfoBar() {
-  const [minimized, setMinimized] = useState(true);
+  const [minimized, setMinimized] = useState();
   const [showTopGradient, setShowTopGradient] = useState(false);
   const [showBottomGradient, setShowBottomGradient] = useState(false);
   const [infobarHeight, setInfobarHeight] = useState(0);
@@ -34,13 +34,14 @@ export default function InfoBar() {
   } = useUser();
   const { authFunction } = useForm();
 
-  //   useEffect(() => {
-  //     const infoBarElem = infoBarRef.current;
-  //     const scrollableElem = scrollableRef.current;
+  useEffect(() => {
+    const infoBarElem = infoBarRef.current;
+    const scrollableElem = scrollableRef.current;
 
-  //     if (infoBarElem) {
-  //       setInfobarHeight(infoBarElem.clientHeight);
-  //     }
+    if (infoBarElem) {
+      setInfobarHeight(infoBarElem.clientHeight);
+    }
+  }, []);
 
   //     if (infoBarElem && scrollableElem) {
   //       const handleScroll = () => {
@@ -98,7 +99,7 @@ export default function InfoBar() {
       {/* fixed ^^ later */}
       <div
         ref={scrollableRef}
-        className="h-full overflow-y-auto scrollbar-hide"
+        className="scrollbar-hide h-full overflow-y-auto"
       >
         <div
           className={`${
@@ -111,7 +112,10 @@ export default function InfoBar() {
           {!minimized ? <p className="bg-red w-6 text-center">-</p> : null}
           {minimized ? <p className="w-6 text-center">+</p> : null}
         </div>
-        <div style={{ maxHeight: "calc(min(532px, 60vh))" }} className="">
+        <div
+          style={{ maxHeight: "calc(min(532px, 60vh))" }}
+          className={` ${!minimized ? "mx-3" : null} py-2`}
+        >
           {!minimized && (
             <div className="my-3 flex">
               <h2 className="my-auto mr-2  ml-auto text-right font-semibold">

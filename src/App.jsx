@@ -20,12 +20,10 @@ export function App() {
       changeMode("dark");
       document.body.classList.add("dark");
       localStorage.theme = "dark";
-      console.log("click");
     } else {
       changeMode("light");
       document.body.classList.remove("dark");
       localStorage.theme = "light";
-      console.log("click");
     }
   };
 
@@ -40,11 +38,11 @@ export function App() {
   }, []);
 
   return (
-    <div className="dark:bg-[#2b2b2a] bg-[#dbdbdb] dark:text-white  text-zinc-700 py-16 px-8 flex w-screen min-h-screen min-w-[520px]">
-      <div className="flex-col w-full">
+    <div className="flex min-h-screen w-screen  min-w-[520px] bg-[#dbdbdb] py-16 px-8 text-zinc-700 dark:bg-[#2b2b2a] dark:text-white">
+      <div className="w-full flex-col">
         <div
           id="db-input-form"
-          className=" w-fit rounded-2xl dark:bg-black/25 bg-[#ebebeb] max-w-1/2 mx-auto h-fit relative p-3"
+          className=" max-w-1/2 relative mx-auto h-fit w-fit rounded-2xl bg-[#ebebeb] p-3 dark:bg-black/25"
         >
           <DbForm />
           <FormSelectForm />
@@ -56,13 +54,13 @@ export function App() {
       <div className="fixed right-0">
         <div
           onClick={() => darkModeToggle()}
-          className="text-center mb-5 dark:bg-zinc-900 dark:text-zinc-600 bg-zinc-100 text-zinc-400 h-16 w-[102px] cursor-pointer rounded-l-xl align-middle text-3xl"
+          className="mb-5 h-16 w-[102px] cursor-pointer rounded-l-xl bg-zinc-100 text-center align-middle text-3xl text-zinc-400 dark:bg-zinc-900 dark:text-zinc-600"
         >
-          <FaSun className="dark:hidden justify-center m-auto h-full" />
-          <BsFillMoonStarsFill className="hidden dark:block m-auto h-full" />
+          <FaSun className="m-auto h-full justify-center dark:hidden" />
+          <BsFillMoonStarsFill className="m-auto hidden h-full dark:block" />
         </div>
         <div
-          className="fixed right-5 rounded-xl overflow-hidden"
+          className="fixed right-5 overflow-hidden rounded-xl"
           style={{
             maxHeight: "calc(100vh - 10.25rem - 25px)",
             minHeight: "calc(100vh - 10.25rem - 25px)",

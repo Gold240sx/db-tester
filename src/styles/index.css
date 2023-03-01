@@ -45,4 +45,108 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+  /* Change Autocomplete styles in Safari*/
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    background-color: transparent;
+  }
+  /* Change Autocomplete styles in Chrome*/
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: rgb(134, 134, 134);
+    /* -webkit-box-shadow: 0 0 0px 1000px #000 inset; */
+    transition: 5000s ease-in-out 0s;
+  }
+  img,
+  svg {
+    user-select: none;
+    /* pointer-events: none;   this will disable the click event on the icons */
+  }
+  input::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+  }
+
+  /* the floating label's containing div MUST include the .floating-label-container class */
+  /* only works for rimple label / input fields matching: */
+  div.floating-label-container:has(.floating-label + input) .floating-label {
+    /* natural state: label */
+    translate: 20px 22px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: 0.25s ease-in-out;
+  }
+  div.floating-label-container:has(.floating-label + input:focus)
+    .floating-label {
+    /* focus state: label */
+    color: rgb(255, 255, 255);
+    translate: 0px 0px;
+  }
+
+  div.floating-label-container:has(.floating-label + input) input {
+    /* natural state: input */
+    translate: 0px -22px !important;
+    transition: 0.25s ease-in-out;
+  }
+  div.floating-label-container:has(.floating-label + input)
+    input:focus:placeholder-shown {
+    /* focus state: input */
+    translate: 0px 0px !important;
+    margin-bottom: 22px;
+  }
+  div.floating-label-container:has(
+      .floating-label + input:placeholder-shown + svg
+    )
+    .icon {
+    /* natural state-no value: icon */
+    z-index: 100 !important;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+  }
+  div.floating-label-container:has(.floating-label + input:focus) .icon {
+    /* focus state-no value: icon */
+    color: rgb(255, 255, 255);
+    --tw-translate-x: 0px;
+    --tw-translate-y: 74px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+    transition: 0.3s ease-in-out;
+  }
+  div.floating-label-container:has(
+      .floating-label + input:not(:placeholder-shown)
+    )
+    .icon {
+    /* focus state-with value: icon */
+    --tw-translate-x: 0px;
+    --tw-translate-y: 73px !important;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y));
+    transition: 0.3s ease-in-out;
+  }
+  /* the next two keeps the positioning of the label when a value is present. */
+  /* Must include a placeholder */
+  div.floating-label-container:has(
+      .floating-label + input:not(:placeholder-shown)
+    )
+    .floating-label {
+    translate: 0px 0px;
+    transition: 0.25s ease-in-out;
+  }
+  div.floating-label-container:has(
+      .floating-label + input:not(:placeholder-shown)
+    )
+    input {
+    translate: 0px 0px !important;
+    margin-bottom: 22px;
+    transition: 0.25s ease-in-out;
+  }
 }
