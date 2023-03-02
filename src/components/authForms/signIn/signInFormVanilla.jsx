@@ -1,6 +1,19 @@
-import React from "react";
-import { useDatabase } from "../../../hooks/useDatabase";
-import { useForm } from "../../../hooks/useForm";
+import React, { useState } from 'react';
+import { useDatabase } from '../../../hooks/useDatabase';
+import { useForm } from '../../../hooks/useForm';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
+import { MdEmail } from 'react-icons/md';
+import { Si1Password } from 'react-icons/si';
+import { BsCheckLg } from 'react-icons/bs';
+import { BsXLg } from 'react-icons/bs';
+import { Switch } from '@headlessui/react';
+
+function classNames(...classes) {
+	return classes.filter(Boolean).join(' ');
+}
 
 // if (database === "firebase") {
 //   import { useFirebase } from "../../../hooks/useFirebase";
@@ -8,43 +21,433 @@ import { useForm } from "../../../hooks/useForm";
 // }
 
 const SignInFormRHF = () => {
-  const { database } = useDatabase();
-  const { form, authFunction, validation } = useForm();
+	const { database } = useDatabase();
+	const { form, authFunction, validation } = useForm();
+	const [loading, setLoading] = useState();
+	const [passwordPreview, setPasswordPreview] = useState('false');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [emailVal, setEmailVal] = useState(false);
+	const [passwordVal, setPasswordVal] = useState(false);
+	const [passwordStrength, setPasswordStrength] = useState(0);
+	const [passwordStrengthLabel, setPasswordStrengthLabel] = useState('');
+	const [emailFocused, setEmailFocused] = useState('');
+	const [passwordFocused, setPasswordFocused] = useState('');
+	const [functionSelected, setFunctionSelected] = useState();
+	const [enabled, setEnabled] = useState(false);
 
-  return (
-    <div className="dark:text-gray-600 font-semibold text-xl mt-5 text-white">
-      <h1 className="text-3xl text-center">Sign In</h1>
-      <form class="mt-5 p-2 gap-4 flex flex-col w-full">
-        <div class="relative">
-          <label for=""></label>
-          <input
-            id="email"
-            name="email"
-            type="text"
-            class="h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus-border-rose-600  backdrop-blur-md bg-white/30 rounded-md border-transparent outline-none"
-            placeholder="Email Address"
-          ></input>
-        </div>
+	return (
+		<div className=" text-gray-600 dark:text-white ">
+			<h1 className="mb-4 text-center text-3xl font-semibold">
+				Sign In!
+			</h1>
+			<p className="mt-2 text-center text-sm text-gray-600">
+				Or{' '}
+				<a
+					href="#"
+					className="font-medium hover:text-blue-600 hover:underline dark:text-blue-400"
+				>
+					start your 14-day free trial
+				</a>
+			</p>
+			<form className="relative flex flex-col gap-3">
+				<section>
+					<div className="floating-label-container m-4 flex h-fit flex-col">
+						<MdEmail
+							alt=""
+							className="icon-left absolute mr-auto ml-2 h-8 w-8 translate-y-[18px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
+						/>
+						<label
+							htmlFor="email"
+							className="floating-label z-50 mb-2 w-fit text-xl text-gray-400 dark:text-white/30"
+						>
+							Email
+							{emailVal && (
+								<BsCheckLg className="label-icon -mt-1 ml-2 inline-block h-6 w-6 fill-green-500" />
+							)}
+							{!emailVal && email.length > 0 && (
+								<BsXLg className="label-icon -mt-1 ml-2 inline-block h-6 w-6 fill-red-500" />
+							)}
+						</label>
+						<input
+							type="email"
+							name="email"
+							id="email"
+							onChange={(e) => handleEmailValidation(e)}
+							value={email}
+							placeholder=" "
+							onFocus={() => {
+								setEmailFocused('focus');
+								// this.previousSibling.classList.add('focus');
+								// this.previousSibling.classList.add('focus');
+							}}
+							onBlur={() => {
+								setEmailFocused('blur');
+								// this.previousSibling.classList.remove('focus');
+								// this.previousSibling.classList.remove('focus');
+							}}
+							className="-mb-4 rounded border border-gray-300 bg-black/10 font-normal  autofill:ring-transparent  focus:border-transparent focus:ring-4 dark:border-none dark:bg-black/25 dark:text-white"
+						/>
+						{!emailVal &&
+							emailFocused == 'blur' &&
+							email.length > 0 && (
+								<p className="mb-4">
+									Please enter a valid email address.
+								</p>
+							)}
+					</div>{' '}
+					<div className="floating-label-container m-4 -mt-20  flex w-auto flex-col">
+						<div className="flex w-auto flex-col">
+							<Si1Password
+								alt=""
+								className="icon icon-left-dual pointer-events-none z-50 mr-auto ml-2 h-8 w-8 translate-y-[83px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
+							/>
+							<div
+								onClick={() => handlePasswordPreview()}
+								className="ml-auto flex w-fit cursor-pointer"
+							>
+								{passwordPreview === 'false' && (
+									<BsFillEyeFill
+										alt=""
+										className="icon z-50 ml-auto mr-2 h-8 w-8 translate-y-[52px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
+									/>
+								)}
+								{passwordPreview === 'true' && (
+									<BsFillEyeSlashFill
+										alt=""
+										className="icon z-50 ml-auto mr-2 h-8 w-8 translate-y-[52px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
+									/>
+								)}
+							</div>
+						</div>
+						<label
+							htmlFor="password"
+							className="floating-label z-50 mb-2 w-fit text-xl text-gray-400 dark:text-white/30"
+						>
+							Password
+							{passwordVal && (
+								<BsCheckLg className="label-icon -mt-1 ml-2 inline-block h-6 w-6 fill-green-500" />
+							)}
+							{!passwordVal && password.length > 0 && (
+								<BsXLg className="label-icon ml-2 -mt-1 inline-block h-6 w-6 fill-red-500" />
+							)}
+						</label>
+						{/*     const password = document.querySelector("input#password")    */}
+						<input
+							type="password"
+							name="password"
+							id="password"
+							onChange={(e) => handlePasswordValidation(e)}
+							value={password}
+							placeholder=" "
+							onFocus={() => {
+								setPasswordFocused('focus');
+								// this.previousSibling.classList.add('focus');
+								// this.previousSibling.classList.add('focus');
+							}}
+							onBlur={() => {
+								setPasswordFocused('blur');
+								// this.previousSibling.classList.remove('focus');
+								// this.previousSibling.classList.remove('focus');
+							}}
+							spellCheck="false"
+							autoComplete="off"
+							className=" rounded border border-gray-300 bg-black/10 font-normal focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-500 dark:border-transparent dark:bg-black/25  dark:text-white"
+						/>
+					</div>
+					<div className="mx-4 -mt-4 mb-6 flex items-center justify-between">
+						<div className="flex items-center">
+							<Switch
+								checked={enabled}
+								onChange={setEnabled}
+								className={classNames(
+									enabled
+										? 'bg-green-600 dark:bg-green-600'
+										: 'bg-gray-200 ',
+									' relative ml-2 inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out hover:ring-green-300 focus:outline-none focus:ring-2 focus:ring-transparent focus:ring-offset-2 dark:bg-[#2C2C2B]'
+								)}
+							>
+								<span className="sr-only">Use setting</span>
+								<span
+									aria-hidden="true"
+									className={classNames(
+										enabled
+											? 'translate-x-4'
+											: 'translate-x-0',
+										'pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out dark:bg-[#5a5a5a]'
+									)}
+								/>
+							</Switch>
+							<input
+								id="remember-me"
+								name="remember-me"
+								type="checkbox"
+								checked={enabled}
+								className="hidden h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-300"
+							/>
+							<label
+								htmlFor="remember-me"
+								className="ml-2 block text-sm"
+							>
+								Remember me
+							</label>
+						</div>
 
-        <div class="relative">
-          <label for=""></label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            class="h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus-border-rose-600 backdrop-blur-md bg-white/30 rounded-md border-transparent outline-none"
-            placeholder="Password"
-          ></input>
-        </div>
-        <button
-          type="button"
-          class=" hover:bg-white/80 active:bg-white text-white font-bold py-2 px-4 rounded-lg mt-5 z-10 w-[25%] mx-auto backdrop-blur-md bg-white/30"
-        >
-          Sign In
-        </button>
-      </form>
-    </div>
-  );
+						<div className="text-sm">
+							<a
+								href="#"
+								className="font-medium hover:text-blue-600 hover:underline dark:text-blue-400"
+							>
+								Forgot your password?
+							</a>
+						</div>
+					</div>
+					<div className="relative flex flex-col pb-6">
+						<button
+							type="button"
+							disabled={loading}
+							className={` ${
+								loading ? 'hidden' : 'block'
+							} mx-4 w-auto rounded-lg bg-blue-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 `}
+							onClick={(e) => handleSignUp(e, '')}
+						>
+							Sign In
+						</button>
+						<button
+							disabled
+							type="button"
+							className={` ${
+								loading ? 'inline-flex' : 'hidden'
+							} mx-4 h-[48px]  w-auto items-center justify-center rounded-lg border border-gray-200 bg-white py-2.5 px-5 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+						>
+							<svg
+								aria-hidden="true"
+								role="status"
+								className="mr-3 inline h-4 w-4 animate-spin text-gray-200 dark:text-gray-600"
+								viewBox="0 0 100 101"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+									fill="currentColor"
+								/>
+								<path
+									d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+									fill="#1C64F2"
+								/>
+							</svg>
+							Loading...
+						</button>
+					</div>
+					<div className="ml-4 mb-4 flex text-left text-sm">
+						<p className=" text-gray-500 dark:text-gray-400">
+							Don't have an account?
+						</p>
+						<button
+							href="#"
+							className="ml-2 text-gray-400 hover:text-blue-600 hover:underline dark:text-blue-400"
+						>
+							Register
+						</button>
+					</div>
+				</section>
+				{/* the horizontal rule */}
+				<div className="relative mx-4">
+					<div className="absolute inset-0 flex items-center">
+						<div className="w-full border-t border-gray-300" />
+					</div>
+					<div className="relative flex justify-center text-sm">
+						<span className="bg-white px-2 text-gray-500 dark:bg-[#373736]">
+							Or continue with
+						</span>
+					</div>
+				</div>
+
+				<section className="mx-4">
+					{/* <div
+						id="alt-login-options"
+						className=" my-4 grid grid-cols-2 gap-2"
+					>
+						<button
+							type="button"
+							className="mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
+							onClick={(e) => handleSignUp(e, 'Google')}
+						>
+						<svg fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm167 633.6C638.4 735 583 757 516.9 757c-95.7 0-178.5-54.9-218.8-134.9C281.5 589 272 551.6 272 512s9.5-77 26.1-110.1c40.3-80.1 123.1-135 218.8-135 66 0 121.4 24.3 163.9 63.8L610.6 401c-25.4-24.3-57.7-36.6-93.6-36.6-63.8 0-117.8 43.1-137.1 101-4.9 14.7-7.7 30.4-7.7 46.6s2.8 31.9 7.7 46.6c19.3 57.9 73.3 101 137 101 33 0 61-8.7 82.9-23.4 26-17.4 43.2-43.3 48.9-74H516.9v-94.8h230.7c2.9 16.1 4.4 32.8 4.4 50.1 0 74.7-26.7 137.4-73 180.1z"></path> </g></svg>
+							Sign in with Google
+						</button>
+						<button
+							type="button"
+							className="mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#24292F] px-5  py-2.5  text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
+							onClick={(e) => handleSignUp(e, 'Github')}
+						>
+							<svg
+								className="mr-2 -ml-1 h-4 w-4"
+								aria-hidden="true"
+								focusable="false"
+								data-prefix="fab"
+								data-icon="github"
+								role="img"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 496 512"
+							>
+								<path
+									fill="currentColor"
+									d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
+								></path>
+							</svg>
+							Sign in with Github
+						</button>
+						<button
+							type="button"
+							className="dark:focus:ring-[#3b5998]/55 mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#3b5998] px-5  py-2.5  text-center text-sm font-medium text-white hover:bg-[#3b5998]/90 focus:outline-none focus:ring-4 focus:ring-[#3b5998]/50"
+							onClick={(e) => handleSignUp(e, 'Facebook')}
+						>
+							<svg
+								className="mr-2 -ml-1 h-4 w-4"
+								aria-hidden="true"
+								focusable="false"
+								data-prefix="fab"
+								data-icon="facebook-f"
+								role="img"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 320 512"
+							>
+								<path
+									fill="currentColor"
+									d="M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z"
+								></path>
+							</svg>
+							Sign in with Facebook
+						</button>
+						<button
+							type="button"
+							className="mr-2 mb-2 inline-flex items-center rounded-lg bg-[#050708] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#050708]/90 focus:outline-none focus:ring-4 focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-[#050708]/50"
+							onClick={(e) => handleSignUp(e, 'Apple')}
+						>
+							<svg
+								className="mr-2 -ml-1 h-5 w-5"
+								aria-hidden="true"
+								focusable="false"
+								data-prefix="fab"
+								data-icon="apple"
+								role="img"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 384 512"
+							>
+								<path
+									fill="currentColor"
+									d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
+								></path>
+							</svg>
+							Sign in with Apple
+						</button>
+					</div> */}
+					<section className="">
+						<div className="mt-4 grid grid-cols-4 gap-3">
+							<div>
+								<a
+									href="#"
+									className="inline-flex w-full justify-center rounded-md bg-white py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 focus:outline-offset-0 dark:border-none dark:bg-[#2C2C2B] dark:text-gray-300 dark:ring-0 dark:hover:bg-[#3C3C3B]"
+								>
+									<span className="sr-only">
+										Sign in with Google
+									</span>
+									<svg
+										fill="currentColor"
+										viewBox="0 0 1024 1024"
+										xmlns="http://www.w3.org/2000/svg"
+										className="icon h-5 w-5"
+										style={{ scale: '1.2' }}
+									>
+										<g
+											id="SVGRepo_bgCarrier"
+											stroke-width="0"
+										></g>
+										<g
+											id="SVGRepo_tracerCarrier"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										></g>
+										<g id="SVGRepo_iconCarrier">
+											{' '}
+											<path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm167 633.6C638.4 735 583 757 516.9 757c-95.7 0-178.5-54.9-218.8-134.9C281.5 589 272 551.6 272 512s9.5-77 26.1-110.1c40.3-80.1 123.1-135 218.8-135 66 0 121.4 24.3 163.9 63.8L610.6 401c-25.4-24.3-57.7-36.6-93.6-36.6-63.8 0-117.8 43.1-137.1 101-4.9 14.7-7.7 30.4-7.7 46.6s2.8 31.9 7.7 46.6c19.3 57.9 73.3 101 137 101 33 0 61-8.7 82.9-23.4 26-17.4 43.2-43.3 48.9-74H516.9v-94.8h230.7c2.9 16.1 4.4 32.8 4.4 50.1 0 74.7-26.7 137.4-73 180.1z"></path>{' '}
+										</g>
+									</svg>
+								</a>
+							</div>
+
+							<div>
+								<a
+									href="#"
+									className="inline-flex w-full justify-center rounded-md bg-white py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 focus:outline-offset-0 dark:border-none dark:bg-[#2C2C2B] dark:text-gray-300 dark:ring-0 dark:hover:bg-[#3C3C3B]"
+								>
+									<span className="sr-only">
+										Sign in with Facebook
+									</span>
+									<svg
+										className="h-5 w-5"
+										aria-hidden="true"
+										fill="currentColor"
+										viewBox="0 0 20 20"
+									>
+										<path
+											fillRule="evenodd"
+											d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"
+											clipRule="evenodd"
+										/>
+									</svg>
+								</a>
+							</div>
+
+							<div>
+								<a
+									href="#"
+									className="dark:ring-none inline-flex w-full justify-center rounded-md bg-white py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 focus:outline-offset-0 dark:border-none dark:bg-[#2C2C2B] dark:text-gray-300 dark:ring-0 dark:hover:bg-[#3C3C3B]"
+								>
+									<span className="sr-only">
+										Sign in with Apple
+									</span>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 384 512"
+										fill="currentColor"
+										className="icon h-5 scale-[1.20]"
+									>
+										<path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path>
+									</svg>
+								</a>
+							</div>
+
+							<div>
+								<a
+									href="#"
+									className="inline-flex w-full justify-center rounded-md bg-white py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 focus:outline-offset-0 dark:border-none dark:bg-[#2C2C2B] dark:text-gray-300 dark:ring-0 dark:hover:bg-[#3C3C3B]"
+								>
+									<span className="sr-only">
+										Sign in with GitHub
+									</span>
+									<svg
+										className="h-5 w-5"
+										aria-hidden="true"
+										fill="currentColor"
+										viewBox="0 0 20 20"
+									>
+										<path
+											fillRule="evenodd"
+											d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+											clipRule="evenodd"
+										/>
+									</svg>
+								</a>
+							</div>
+						</div>
+					</section>
+				</section>
+			</form>
+		</div>
+	);
 };
 
 export default SignInFormRHF;

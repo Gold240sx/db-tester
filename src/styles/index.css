@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -226,5 +225,17 @@
 		/* animation: animate-glow 1.5s ease both infinite; */
 		background-size: 400% 100%;
 		background-position: 0 50%;
+	}
+
+	/* Dark mode support for  sweet  alert */
+	.swal2-popup {
+		background-color: white !important;
+		color: #1f2937 !important;
+		box-shadow: 0 0 20px #ffffff74, 0 0 20px #ffffff78;
+	}
+
+	body.dark .swal2-popup {
+		background-color: #2e3237 !important;
+		color: white !important;
 	}
 }

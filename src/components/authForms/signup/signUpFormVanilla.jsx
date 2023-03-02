@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react';
 // import reactFireSignupForm from "./reactFireSignupForm";
 // import SupabaseSignupForm from "./SupabaseSignupForm";
 import zxcvbn from 'zxcvbn';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { Si1Password } from 'react-icons/si';
@@ -17,7 +20,7 @@ import { useForm } from '../../../hooks/useForm';
 
 const SignUpFormVanilla = () => {
 	const { database } = useDatabase();
-	const { form, authFunction, validation } = useForm();
+	const { form, authFunction, setAuthFunction, validation } = useForm();
 	const [loading, setLoading] = useState();
 	const [passwordPreview, setPasswordPreview] = useState('false');
 	const [email, setEmail] = useState('');
@@ -46,12 +49,60 @@ const SignUpFormVanilla = () => {
 		}
 	];
 
-	useEffect(() => {
-		setLoading(false);
-	}, []);
+	const handleSignUp = async (e, brand) => {
+		e.preventDefault();
+		setLoading(true);
+		// Call your API or perform any async operation here
+		try {
+			// const res = await axios.post('/api/your-endpoint', formData);
+			// console.log(res.data);
 
-	const handleSignUp = () => {
-		console.log('Sign Up with Google');
+			// toast.success(
+			// 	`Success!<br />
+			//     Account Created ${
+			// 		brand ? 'through ' + brand + ' Sign In!' : '!'
+			// 	} `,
+			// 	{
+			// 		position: 'top-right',
+			// 		autoClose: 5000,
+			// 		hideProgressBar: false,
+			// 		closeOnClick: true,
+			// 		pauseOnHover: true,
+			// 		draggable: true,
+			// 		progress: undefined
+			// 	}
+			// );
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				timer: 4000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer);
+					toast.addEventListener('mouseleave', Swal.resumeTimer);
+				}
+			});
+			const darkModeToggle = document.querySelector('#dark-mode-toggle');
+			darkModeToggle.disabled = true;
+			Toast.fire({
+				icon: 'success',
+				title: 'Success!',
+				text: `Account Created \n${
+					brand ? 'through ' + brand + ' Sign In!' : '!'
+				} `,
+				confirmButtonText: 'Awesome!',
+				showCloseButton: true,
+				width: 'fit-content'
+			});
+			setTimeout(() => {
+				darkModeToggle.disabled = false;
+			}, 4000);
+		} catch (error) {
+			console.log(error);
+			toast.error('Failed to create account: ' + error.message);
+		}
+		setLoading(false);
 	};
 
 	const handlePasswordPreview = () => {
@@ -111,8 +162,8 @@ const SignUpFormVanilla = () => {
 					>
 						<button
 							type="button"
-							className="mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
-							onClick={handleSignUp}
+							className="mr-2 mb-2 inline-flex items-center justify-around whitespace-nowrap rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
+							onClick={(e) => handleSignUp(e, 'Google')}
 						>
 							<svg
 								className="mr-2 -ml-1 h-4 w-4"
@@ -133,8 +184,8 @@ const SignUpFormVanilla = () => {
 						</button>
 						<button
 							type="button"
-							className="mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#24292F] px-5  py-2.5  text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
-							onClick={handleSignUp}
+							className="mr-2 mb-2 inline-flex items-center justify-around whitespace-nowrap rounded-lg bg-[#24292F]  px-5  py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
+							onClick={(e) => handleSignUp(e, 'Github')}
 						>
 							<svg
 								className="mr-2 -ml-1 h-4 w-4"
@@ -155,8 +206,8 @@ const SignUpFormVanilla = () => {
 						</button>
 						<button
 							type="button"
-							className="dark:focus:ring-[#3b5998]/55 mr-2 mb-2 inline-flex items-center whitespace-nowrap rounded-lg bg-[#3b5998] px-5  py-2.5  text-center text-sm font-medium text-white hover:bg-[#3b5998]/90 focus:outline-none focus:ring-4 focus:ring-[#3b5998]/50"
-							onClick={handleSignUp}
+							className="dark:focus:ring-[#3b5998]/55 mr-2 mb-2 inline-flex items-center justify-around whitespace-nowrap rounded-lg bg-[#3b5998]  px-5  py-2.5 text-center text-sm font-medium text-white hover:bg-[#3b5998]/90 focus:outline-none focus:ring-4 focus:ring-[#3b5998]/50"
+							onClick={(e) => handleSignUp(e, 'Facebook')}
 						>
 							<svg
 								className="mr-2 -ml-1 h-4 w-4"
@@ -177,7 +228,8 @@ const SignUpFormVanilla = () => {
 						</button>
 						<button
 							type="button"
-							className="mr-2 mb-2 inline-flex items-center rounded-lg bg-[#050708] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#050708]/90 focus:outline-none focus:ring-4 focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-[#050708]/50"
+							className="mr-2 mb-2 inline-flex items-center justify-around rounded-lg bg-[#050708] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#050708]/90 focus:outline-none focus:ring-4 focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-[#050708]/50"
+							onClick={(e) => handleSignUp(e, 'Apple')}
 						>
 							<svg
 								className="mr-2 -ml-1 h-5 w-5"
@@ -249,7 +301,7 @@ const SignUpFormVanilla = () => {
 					</div>{' '}
 					{/* Password strength bar */}
 					{password.length > 4 && (
-						<div className="mb-8 rounded-lg bg-zinc-100 p-5 px-4 pb-4 dark:bg-white/5">
+						<div className="mx-4 mb-8 rounded-lg bg-zinc-100 p-5 px-4 pb-4 dark:bg-white/5">
 							<h3 className="mb-2 text-sm font-medium">
 								Password Strength Indicator
 							</h3>
@@ -349,8 +401,8 @@ const SignUpFormVanilla = () => {
 								// this.previousSibling.classList.remove('focus');
 								// this.previousSibling.classList.remove('focus');
 							}}
-							spellcheck="false"
-							autocomplete="off"
+							spellCheck="false"
+							autoComplete="off"
 							className=" rounded border border-gray-300 bg-black/10 font-normal focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-500 dark:border-transparent dark:bg-black/25  dark:text-white"
 						/>
 						{/* Password Requirement  */}
@@ -390,10 +442,11 @@ const SignUpFormVanilla = () => {
 					<div className="relative -mt-2 flex flex-col pb-6">
 						<button
 							type="button"
+							disabled={loading}
 							className={` ${
 								loading ? 'hidden' : 'block'
 							} mx-auto w-1/2 rounded-lg bg-blue-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 `}
-							onClick={handleSignUp}
+							onClick={(e) => handleSignUp(e, '')}
 						>
 							Create Account
 						</button>
@@ -424,12 +477,12 @@ const SignUpFormVanilla = () => {
 							Loading...
 						</button>
 					</div>
-					<a
+					<button
 						href="#"
-						className="ml-2 mt-4 text-blue-400 hover:text-blue-600 hover:underline dark:text-blue-400"
+						className="ml-2 mt-4 text-sm text-blue-400 hover:text-blue-600 hover:underline dark:text-blue-400"
 					>
 						Already have an account?
-					</a>
+					</button>
 				</section>
 			</form>
 		</div>
