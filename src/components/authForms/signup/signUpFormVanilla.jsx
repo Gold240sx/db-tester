@@ -249,7 +249,7 @@ const SignUpFormVanilla = () => {
 					</div>{' '}
 					{/* Password strength bar */}
 					{password.length > 4 && (
-						<div className="mb-8 rounded-lg bg-white/5 p-5 px-4 pb-4">
+						<div className="mb-8 rounded-lg bg-zinc-100 p-5 px-4 pb-4 dark:bg-white/5">
 							<h3 className="mb-2 text-sm font-medium">
 								Password Strength Indicator
 							</h3>
