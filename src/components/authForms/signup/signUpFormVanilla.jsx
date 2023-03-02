@@ -3,9 +3,14 @@ import React, { useState, useEffect } from 'react';
 // import FirebaseSignupForm from "./FirebaseSignupForm";
 // import reactFireSignupForm from "./reactFireSignupForm";
 // import SupabaseSignupForm from "./SupabaseSignupForm";
+import zxcvbn from 'zxcvbn';
 import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { Si1Password } from 'react-icons/si';
+import { BsCheckLg } from 'react-icons/bs';
+import { BsX, BsXLg } from 'react-icons/bs';
+import { FaCheck, FaTimes } from 'react-icons/fa';
+import { ImCross } from 'react-icons/im';
 
 import { useDatabase } from '../../../hooks/useDatabase';
 import { useForm } from '../../../hooks/useForm';
@@ -15,9 +20,31 @@ const SignUpFormVanilla = () => {
 	const { form, authFunction, validation } = useForm();
 	const [loading, setLoading] = useState();
 	const [passwordPreview, setPasswordPreview] = useState('false');
-	const [email, setEmail] = useState();
-	const [password, setPassword] = useState();
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [emailVal, setEmailVal] = useState(false);
+	const [passwordVal, setPasswordVal] = useState(false);
+	const [passwordStrength, setPasswordStrength] = useState(0);
+	const [passwordStrengthLabel, setPasswordStrengthLabel] = useState('');
+	const [emailFocused, setEmailFocused] = useState('');
+	const [passwordFocused, setPasswordFocused] = useState('');
 	const [functionSelected, setFunctionSelected] = useState();
+
+	const PWD_REGEX =
+		/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&()])[A-Za-z\d@$!%*?&()]{8,24}$/;
+	const EML_REGEX =
+		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+	// Password requirements
+	const passwordRequirements = [
+		{ text: 'At least 8 characters', met: password?.length >= 8 },
+		{ text: 'At least 1 uppercase letter', met: /[A-Z]/.test(password) },
+		{ text: 'At least 1 number', met: /\d/.test(password) },
+		{
+			text: 'At least 1 special character',
+			met: /[@$!%*?&]/.test(password)
+		}
+	];
 
 	useEffect(() => {
 		setLoading(false);
@@ -33,6 +60,39 @@ const SignUpFormVanilla = () => {
 		passwordPreview === 'true'
 			? (passwordInput.type = 'password')
 			: (passwordInput.type = 'text');
+	};
+
+	const handleEmailValidation = (e) => {
+		const email = e.target.value;
+		setEmail(email);
+		const emailValidation = EML_REGEX.test(email);
+		if (emailValidation) {
+			setEmailVal(true);
+		} else {
+			setEmailVal(false);
+		}
+	};
+
+	const handlePasswordValidation = (e) => {
+		const password = e.target.value;
+		setPassword(password);
+		const passwordValidation = PWD_REGEX.test(password);
+		if (passwordValidation) {
+			setPasswordVal(true);
+			const score = zxcvbn(password).score;
+			setPasswordStrength(score + 1);
+			if (score === 0 || score === 1) {
+				setPasswordStrengthLabel('Weak password');
+			} else if (score === 2) {
+				setPasswordStrengthLabel('Moderate password');
+			} else {
+				setPasswordStrengthLabel('Strong password');
+			}
+		} else {
+			setPasswordVal(false);
+			setPasswordStrength(0);
+			setPasswordStrengthLabel('');
+		}
 	};
 
 	return (
@@ -140,42 +200,101 @@ const SignUpFormVanilla = () => {
 				</section>
 				<hr />
 				<section>
-					<h2 className=" relative ml-5 text-gray-400">
+					<h2 className=" relative ml-2 mt-2 text-gray-400">
 						...Or create a username and password:
 					</h2>
 					<div className="floating-label-container m-4 flex h-fit flex-col">
 						<MdEmail
 							alt=""
-							className="icon-left absolute mr-auto ml-2 h-8 w-8 translate-y-[20px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
+							className="icon-left absolute mr-auto ml-2 h-8 w-8 translate-y-[18px] fill-black/20 transition-all duration-[400ms] ease-in-out hover:fill-black/30 focus:fill-black/50 dark:fill-white/40 dark:hover:fill-white/60 dark:focus:fill-white/80"
 						/>
 						<label
 							htmlFor="email"
-							className="floating-label z-50 mb-2 text-xl text-gray-400 dark:text-white/30"
+							className="floating-label z-50 mb-2 w-fit text-xl text-gray-400 dark:text-white/30"
 						>
 							Email
-							{/* place the validation icon below: here > */}
-							{email && ' ' + email}
+							{emailVal && (
+								<BsCheckLg className="label-icon -mt-1 ml-2 inline-block h-6 w-6 fill-green-500" />
+							)}
+							{!emailVal && email.length > 0 && (
+								<BsXLg className="label-icon -mt-1 ml-2 inline-block h-6 w-6 fill-red-500" />
+							)}
 						</label>
 						<input
 							type="email"
 							name="email"
 							id="email"
-							onChange={(e) => {
-								setEmail(e.target.value);
-							}}
+							onChange={(e) => handleEmailValidation(e)}
 							value={email}
 							placeholder=" "
 							onFocus={() => {
-								this.previousSibling.classList.add('focus');
-								this.previousSibling.classList.add('focus');
+								setEmailFocused('focus');
+								// this.previousSibling.classList.add('focus');
+								// this.previousSibling.classList.add('focus');
 							}}
 							onBlur={() => {
-								this.previousSibling.classList.remove('focus');
-								this.previousSibling.classList.remove('focus');
+								setEmailFocused('blur');
+								// this.previousSibling.classList.remove('focus');
+								// this.previousSibling.classList.remove('focus');
 							}}
 							className="-mb-4 rounded border border-gray-300 bg-black/10 font-normal  autofill:ring-transparent  focus:border-transparent focus:ring-4 dark:border-none dark:bg-black/25 dark:text-white"
 						/>
+						{!emailVal &&
+							emailFocused == 'blur' &&
+							email.length > 0 && (
+								<p className="mb-4">
+									Please enter a valid email address.
+								</p>
+							)}
 					</div>{' '}
+					{/* Password strength bar */}
+					{password.length > 4 && (
+						<div className="mb-8 rounded-lg bg-white/5 p-5 px-4 pb-4">
+							<h3 className="mb-2 text-sm font-medium">
+								Password Strength Indicator
+							</h3>
+							<div className="h-2 w-full rounded bg-gray-300 dark:bg-zinc-800">
+								<div
+									className={`h-full rounded ${
+										passwordStrength === 0
+											? 'bg-red-500'
+											: passwordStrength === 1
+											? 'bg-yellow-500'
+											: passwordStrength === 2
+											? 'bg-yellow-500'
+											: passwordStrength === 3
+											? 'bg-green-500'
+											: 'animate-gradient bg-gradient bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 shadow-lg shadow-white/50'
+									}`}
+									style={{
+										width: `${
+											passwordStrength === 0
+												? '5%'
+												: passwordStrength === 1
+												? '25%'
+												: passwordStrength === 2
+												? '50%'
+												: passwordStrength === 3
+												? '75%'
+												: '100%'
+										}`,
+										maxWidth: '100%'
+									}}
+								/>
+							</div>
+							<p className="mt-2 text-sm">
+								{passwordStrength === 0
+									? 'Weak password'
+									: passwordStrength === 1
+									? 'Moderate password'
+									: passwordStrength === 2
+									? 'Strong password'
+									: passwordStrength === 3
+									? 'Very strong password'
+									: 'Super Sayian password!!!!'}
+							</p>
+						</div>
+					)}
 					<div className="floating-label-container m-4 -mt-20 flex w-auto flex-col">
 						<div className="flex w-auto flex-col">
 							<Si1Password
@@ -202,34 +321,69 @@ const SignUpFormVanilla = () => {
 						</div>
 						<label
 							htmlFor="password"
-							className="floating-label z-50 mb-2 text-xl text-gray-400 dark:text-white/30"
+							className="floating-label z-50 mb-2 w-fit text-xl text-gray-400 dark:text-white/30"
 						>
 							Password
-							{/* place the validation icon below: here > */}
-							{password && ' ' + password}
+							{passwordVal && (
+								<BsCheckLg className="label-icon -mt-1 ml-2 inline-block h-6 w-6 fill-green-500" />
+							)}
+							{!passwordVal && password.length > 0 && (
+								<BsXLg className="label-icon ml-2 -mt-1 inline-block h-6 w-6 fill-red-500" />
+							)}
 						</label>
 						{/*     const password = document.querySelector("input#password")    */}
 						<input
 							type="password"
 							name="password"
 							id="password"
-							onChange={(e) => {
-								setPassword(e.target.value);
-							}}
+							onChange={(e) => handlePasswordValidation(e)}
 							value={password}
 							placeholder=" "
 							onFocus={() => {
-								this.previousSibling.classList.add('focus');
-								this.previousSibling.classList.add('focus');
+								setPasswordFocused('focus');
+								// this.previousSibling.classList.add('focus');
+								// this.previousSibling.classList.add('focus');
 							}}
 							onBlur={() => {
-								this.previousSibling.classList.remove('focus');
-								this.previousSibling.classList.remove('focus');
+								setPasswordFocused('blur');
+								// this.previousSibling.classList.remove('focus');
+								// this.previousSibling.classList.remove('focus');
 							}}
 							spellcheck="false"
 							autocomplete="off"
 							className=" rounded border border-gray-300 bg-black/10 font-normal focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-500 dark:border-transparent dark:bg-black/25  dark:text-white"
 						/>
+						{/* Password Requirement  */}
+						{!passwordVal &&
+							((passwordFocused == 'blur' &&
+								password.length > 0) ||
+								(passwordFocused == 'focus' &&
+									password.length > 4)) && (
+								<div className="relative mt-2 mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
+									<h3 className="mb-2 text-lg font-medium">
+										Password must contain the following:
+									</h3>
+									<ul className="list-inside list-disc">
+										{passwordRequirements.map((req, i) => (
+											<li
+												key={i}
+												className={`flex items-center ${
+													req.met
+														? 'text-green-500'
+														: 'text-red-500'
+												}`}
+											>
+												{req.met ? (
+													<FaCheck className="mr-2 text-green-500" />
+												) : (
+													<FaTimes className="mr-2 text-red-500" />
+												)}
+												<span>{req.text}</span>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
 					</div>
 					{/* Create validation information here */}
 					{/* Password Preview: {passwordPreview} */}

@@ -134,7 +134,7 @@
 	/* Any Icons on the left of an input */
 	div.floating-label-container:has(.floating-label + input:focus) .icon-left {
 		opacity: 0.15;
-		translate: 0px 18px !important;
+		translate: 0px 21px !important;
 		transition: 0.25s ease-in-out;
 	}
 	div.floating-label-container:has(
@@ -181,5 +181,50 @@
 		translate: 0px 0px !important;
 		margin-bottom: 22px;
 		transition: 0.25s ease-in-out;
+	}
+
+	@keyframes animate-gradient {
+		0% {
+			background-position: 0 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0 50%;
+		}
+	}
+
+	@keyframes animate-glow {
+		0% {
+			box-shadow: 0 0 20px #ffffff74, 0 0 20px #ffffff78,
+				0 0 80px #ffffff83, 0 0 80px #ffffff7a, 0 0 160px #ffffff76;
+		}
+		50% {
+			box-shadow: 0 0 10px #ffffff00,
+				0 0 30px rgba(255, 255, 255, 0) 0 0 60px #ffffff00,
+				0 0 100px #ffffff00, 0 0 140px #ffffff00, 0 0 320px #ffffff00;
+		}
+		100% {
+			box-shadow: 0 0 20px #ffffff74, 0 0 20px #ffffff78,
+				0 0 80px #ffffff83, 0 0 80px #ffffff7a, 0 0 160px #ffffff76;
+		}
+	}
+
+	.bg-gradient {
+		background: linear-gradient(
+			to right,
+			red,
+			orange,
+			yellow,
+			green,
+			blue,
+			indigo,
+			violet
+		);
+		animation: animate-gradient 2.5s ease infinite;
+		/* animation: animate-glow 1.5s ease both infinite; */
+		background-size: 400% 100%;
+		background-position: 0 50%;
 	}
 }
